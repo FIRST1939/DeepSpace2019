@@ -5,15 +5,20 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package com.frcteam1939.deepspace2019.robot;
+package com.frcteam1939.deepspace2019.robot.subsystems;
 
-import edu.wpi.first.wpilibj.RobotBase;
+import com.frcteam1939.deepspace2019.robot.commands.smartdashboard.SmartDashboardUpdater;
 
-public final class Main {
-  private Main() {
-  }
-  
-  public static void main(String... args) {
-    RobotBase.startRobot(Robot::new);
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.Subsystem;
+
+public class SmartDashboardSubsystem extends Subsystem {
+
+  @Override
+  public void initDefaultCommand() {
+		Command command = new SmartDashboardUpdater();
+		command.setRunWhenDisabled(true);
+
+		setDefaultCommand(command);
   }
 }
