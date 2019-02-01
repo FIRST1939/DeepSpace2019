@@ -55,6 +55,22 @@ public class Drivetrain extends Subsystem {
 
   // Get Methods 
 
+  public double getLeftPosition(){
+    return frontLeft.getSelectedSensorPosition();
+  }
+
+  public double getRightPosition(){
+    return frontRight.getSelectedSensorPosition();
+  }
+
+  public double getLeftVelocity(){
+    return frontLeft.getSelectedSensorVelocity();
+  }
+
+  public double getRightVelocity(){
+    return frontRight.getSelectedSensorVelocity();
+  }
+
   // Set Methods
 
   public void setPercentOutput(double leftPercent, double rightPercent){
