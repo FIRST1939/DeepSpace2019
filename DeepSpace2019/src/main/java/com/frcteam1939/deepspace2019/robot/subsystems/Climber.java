@@ -7,10 +7,14 @@
 
 package com.frcteam1939.deepspace2019.robot.subsystems; //package declaration
 
+import edu.wpi.first.wpilibj.Sendable;
 import edu.wpi.first.wpilibj.command.Subsystem; //import the Subsystem template class
+import com.ctre.phoenix.motorcontrol.ControlMode; //imports Control Mode for the motor controllers
+import com.ctre.phoenix.motorcontrol.NeutralMode; //imports the NeutralMode for the motor controllers
 import com.ctre.phoenix.motorcontrol.can.TalonSRX; //import the TalonSRX Class
 import com.frcteam1939.deepspace2019.robot.RobotMap;//import robotmap file for motor controller ids
 //import com.frcteam1939.deepspace2019.commands.climber.ClimberGamepadControl; //import default command to control the climber
+import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Climber extends Subsystem {
     TalonSRX skiTalon = new TalonSRX(RobotMap.skiTalon); //construct the skiTalon, which controls the skis
@@ -40,9 +44,71 @@ public class Climber extends Subsystem {
         rackGearTalon.enableVoltageCompensation(true);
         climberWheelsTalon.enableVoltageCompensation(true);
     }
+    
+    /**
+     * Sets the default command at initialization.
+     */
     @Override
      public void initDefaultCommand() {
         // setDefaultCommand(new ClimberJoystickControl()); //set this to be controlled by the ClimberJoystickControl command
     }
     
+    /**
+     * Sets the percent output of the skiTalon.
+     * @param value is the percent output to run the motor at, between 0 and 1.
+     */
+    public void setSkiTalon(double value) {
+      skiTalon.set(ControlMode.PercentOutput, value);
+    }
+    /**
+     * Sets the percent output of the rackGeatTalon.
+     */
+    public void setRackGearTalon(double value) {
+      rackGearTalon.set(ControlMode.PercentOutput, value);
+    }
+    /**
+     * Sets the percent output of the climberWheelsTalon.
+     */
+    public void setClimberWheels(double value){
+      climberWheelsTalon.set(ControlMode.PercentOutput, value);
+    }
+    
+    /** 
+     * Sets the skiTalon's neutral state as break.
+    */
+    public void setSkiTalonEnableBrakeMode() {
+      skiTalon.setNeutralMode(NeutralMode.Brake);
+    }
+    /** 
+     * Sets the rackGearTalon's neutral state as break.
+    */
+    public void setRackGearTalonEnableBrakeMode(){
+      rackGearTalon.setNeutralMode(NeutralMode.Brake);
+    }
+    /** 
+     * Sets the climberWheelsTalon's neutral state as break.
+    */
+    public void setClimberWheelsTalonEnableBrakeMode(){
+      climberWheelsTalon.setNeutralMode(NeutralMode.Brake);
+    }
+    
+    /**
+     * Sets the skiTalon's neutral state as coast.
+     */
+    public void setSkiTalonDisableBrakeMode() {
+      skiTalon.setNeutralMode(NeutralMode.Coast);
+    }
+    /** 
+     * Sets the rackGearTalon's neutral state as coast.
+    */
+    public void setRackGearTalonDisableBrakeMode(){
+      rackGearTalon.setNeutralMode(NeutralMode.Coast);
+    }
+    /** 
+     * Sets the climberWheelsTalon's neutral state as coast.
+    */
+    public void setClimberWheelsTalonDisableBrakeMode(){
+      climberWheelsTalon.setNeutralMode(NeutralMode.Coast);
+    }
+
 }
