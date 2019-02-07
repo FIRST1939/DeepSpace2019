@@ -31,10 +31,11 @@ public class ElevatorToTopPID extends Command {
 
   @Override
   protected void end() {
+    Robot.elevator.stop();
   }
 
   @Override
   protected void interrupted() {
-    Robot.elevator.set(0);
+    Robot.elevator.stop();
   }
 }

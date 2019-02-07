@@ -24,6 +24,5 @@ public class ElevatorToTop extends CommandGroup {
         addSequential(new Wait(TIME_TO_TOP));
         addSequential(new SetElevatorMotorSpeed(0));
     }
-   
   }
 }

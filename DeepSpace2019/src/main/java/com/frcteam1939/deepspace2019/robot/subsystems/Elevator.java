@@ -19,11 +19,10 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Elevator extends Subsystem {
 
- //PID values that correct elevator height.
   private static final double MAX_SPEED = 50000;
   private static final double UNITS_PER_INCH = 22000;
 
-  //The tuned PID values for the elevator for fine control
+  // The tuned PID values for the elevator for finite control
   private static final double P = 0;
   private static final double I = 0;
   private static final double D = 0;
@@ -31,21 +30,16 @@ public class Elevator extends Subsystem {
   boolean PIDmode = false;
 
   private static int elevatorIndex = 0;
-  
-//a true or false value that returns if the elevator is moving up or down
-  private boolean isRaising = false;
-	private boolean isLowering = false;
 
-  private TalonSRX talon = new TalonSRX(RobotMap.elevatorTalon);//initializes elevator talon
+  private TalonSRX talon = new TalonSRX(RobotMap.elevatorTalon); // Initializes elevator talon
 
   public Elevator(){
 
     //***** ENABLE PID ****\\
-        this.enablePID();
+    this.enablePID();
     //***** ENABLE PID ****\\
 
     talon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
-    talon.setSensorPhase(true);
     talon.selectProfileSlot(elevatorIndex, 0);
     talon.configNominalOutputForward(+0);
 		talon.configNominalOutputReverse(-0);
@@ -55,13 +49,12 @@ public class Elevator extends Subsystem {
 		talon.configMotionCruiseVelocity((int) (MAX_SPEED * 0.5));
 		talon.configMotionAcceleration((int) (MAX_SPEED * 0.5));
 		talon.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, 10);
-		talon.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10 );
+		talon.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10);
 
-    //Set up PID for elevator
+    // Sets up PID for elevator
     talon.config_kP(elevatorIndex, P);
 		talon.config_kI(elevatorIndex, I);
     talon.config_kD(elevatorIndex, D);
-
   }
  
   @Override
@@ -69,22 +62,13 @@ public class Elevator extends Subsystem {
     setDefaultCommand(new ElevatorGamepadControl());
   }
 
-  // sets the talon to a specific percent output 
+  // Sets the talon to a specific percent output 
   public void set(double value) { 
 		talon.set(ControlMode.PercentOutput, value);
-	  	if (value > 0) {
-			  isRaising = true;
-			  isLowering = false;
-      }   
-      else {
-		  	isRaising = false;
-			  isLowering = true;
-    }
   }
   
   public void setPID(double P, double I, double D) {
-    if(usePID())
-    {
+    if(usePID()){
 	  	talon.selectProfileSlot(elevatorIndex, 0);
 		  talon.config_kP(elevatorIndex, P);
 		  talon.config_kI(elevatorIndex, I);
@@ -104,33 +88,23 @@ public class Elevator extends Subsystem {
     PIDmode = false;
   }
 
-  //sets the current height of the elevator to the new desired height
+  // Sets the current height of the elevator to the new desired height
   public void setHeight(double height){
-
-      double newHeight = (height - getHeight())* UNITS_PER_INCH;
+      double newHeight = (height - getHeight()) * UNITS_PER_INCH;
       talon.set(ControlMode.MotionMagic, newHeight);
-
-      if (newHeight > 0) {
-        isRaising = true;
-        isLowering = false;
-      } else {
-        isRaising = false;
-        isLowering = true;
-      }
-
   }
 
-  //returns the raw encoder values
+  // Returns the position of the encoder in raw encoder values
   public double getRawUnits() {
 		return talon.getSelectedSensorPosition(0);
   }
   
-  //returns the position of the encoder in inches
+  // Returns the position of the encoder in inches
   public double getHeight() {
 		return talon.getSelectedSensorPosition(0) / UNITS_PER_INCH;
   }
   
-  // returns velocity of the talon.
+  // Returns the velocity of the talon.
   public double getSpeed() {
 		return talon.getSelectedSensorVelocity(0);
   }
@@ -146,13 +120,4 @@ public class Elevator extends Subsystem {
   public void stop() {
 		set(0);
   }
-  
-  public boolean isRaising() {
-		return isRaising;
-	}
-
-	public boolean isLowering() {
-		return isLowering;
-	}
-
 }

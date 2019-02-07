@@ -13,7 +13,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import com.frcteam1939.deepspace2019.robot.DistanceConstants;
 
 public class ElevatorToBottomPID extends Command {
-  public ElevatorToBottomPID() {}
+  public ElevatorToBottomPID() {
+  }
 
   @Override
   protected void initialize() {
@@ -31,10 +32,11 @@ public class ElevatorToBottomPID extends Command {
 
   @Override
   protected void end() {
+    Robot.elevator.stop();
   }
 
   @Override
   protected void interrupted() {
-    Robot.elevator.set(0);
+    Robot.elevator.stop();
   }
 }

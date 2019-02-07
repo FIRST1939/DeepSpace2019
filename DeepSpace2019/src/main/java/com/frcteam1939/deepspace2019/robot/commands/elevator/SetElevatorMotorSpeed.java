@@ -16,7 +16,7 @@ public class SetElevatorMotorSpeed extends Command {
 
   public SetElevatorMotorSpeed(double value) {
       requires(Robot.elevator);
-      this.speed = value;
+      speed = value;
   }
 
   @Override
@@ -26,12 +26,11 @@ public class SetElevatorMotorSpeed extends Command {
 
   @Override
   protected void execute() {
-      Robot.elevator.set(speed);
   }
 
   @Override
   protected boolean isFinished() {
-      return false;
+      return true;
   }
 
   @Override

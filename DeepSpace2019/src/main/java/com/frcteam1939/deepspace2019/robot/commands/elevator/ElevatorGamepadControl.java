@@ -21,12 +21,8 @@ public class ElevatorGamepadControl extends Command {
   @Override
   protected void execute() {
    
-      double move = -Robot.oi.gamepad.getRightY();
+      double move = Robot.oi.gamepad.getRightY();
       Robot.elevator.set(move);
-
-      if (Robot.oi.gamepad.back.get()) {
-			  Robot.elevator.stop();
-      }
 
       if(Robot.elevator.usePID()){
         Robot.oi.gamepad.a.whenPressed(new ElevatorToBottomPID());
@@ -37,7 +33,6 @@ public class ElevatorGamepadControl extends Command {
         Robot.oi.gamepad.b.whenPressed(new ElevatorToMiddle());
         Robot.oi.gamepad.y.whenPressed(new ElevatorToTop());
      }
-    
   }
 
   @Override
