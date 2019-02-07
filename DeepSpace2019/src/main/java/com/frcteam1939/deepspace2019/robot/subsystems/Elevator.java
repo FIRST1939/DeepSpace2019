@@ -17,12 +17,9 @@ import com.frcteam1939.deepspace2019.robot.commands.elevator.ElevatorGamepadCont
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-/**
- * Add your docs here.
- */
 public class Elevator extends Subsystem {
-//PID values that correct elevator height.
-  private static final int TIMEOUT_MS = 0;
+
+ //PID values that correct elevator height.
   private static final double MAX_SPEED = 50000;
   private static final double UNITS_PER_INCH = 22000;
 
@@ -32,7 +29,6 @@ public class Elevator extends Subsystem {
   private static final double D = 0;
 
   boolean PIDmode = false;
-
 
   private static int elevatorIndex = 0;
   
@@ -44,51 +40,55 @@ public class Elevator extends Subsystem {
 
   public Elevator(){
 
-    this.talon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative,0,TIMEOUT_MS);
-    this.talon.setSensorPhase(true);
-    this.talon.selectProfileSlot(elevatorIndex, 0);
-    this.talon.configNominalOutputForward(+0, TIMEOUT_MS);
-		this.talon.configNominalOutputReverse(-0, TIMEOUT_MS);
-		this.talon.configPeakOutputForward(+1, TIMEOUT_MS);
-		this.talon.configPeakOutputReverse(-1, TIMEOUT_MS);
-		this.talon.configAllowableClosedloopError(elevatorIndex, 1000, TIMEOUT_MS);
-		this.talon.configMotionCruiseVelocity((int) (MAX_SPEED * 0.5), TIMEOUT_MS);
-		this.talon.configMotionAcceleration((int) (MAX_SPEED * 0.5), TIMEOUT_MS);
-		this.talon.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, 10, TIMEOUT_MS);
-		this.talon.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10, TIMEOUT_MS);
+    //***** ENABLE PID ****\\
+        this.enablePID();
+    //***** ENABLE PID ****\\
+
+    talon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
+    talon.setSensorPhase(true);
+    talon.selectProfileSlot(elevatorIndex, 0);
+    talon.configNominalOutputForward(+0);
+		talon.configNominalOutputReverse(-0);
+		talon.configPeakOutputForward(+1);
+		talon.configPeakOutputReverse(-1);
+		talon.configAllowableClosedloopError(elevatorIndex, 1000);
+		talon.configMotionCruiseVelocity((int) (MAX_SPEED * 0.5));
+		talon.configMotionAcceleration((int) (MAX_SPEED * 0.5));
+		talon.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, 10);
+		talon.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10 );
 
     //Set up PID for elevator
-    this.talon.config_kP(elevatorIndex, P, TIMEOUT_MS);
-		this.talon.config_kI(elevatorIndex, I, TIMEOUT_MS);
-		this.talon.config_kD(elevatorIndex, D, TIMEOUT_MS);
+    talon.config_kP(elevatorIndex, P);
+		talon.config_kI(elevatorIndex, I);
+    talon.config_kD(elevatorIndex, D);
 
   }
  
-
   @Override
   public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    this.setDefaultCommand(new ElevatorGamepadControl());
+    setDefaultCommand(new ElevatorGamepadControl());
   }
 
-  public void set(double value) { // sets the talon to a specific percent output 
-		this.talon.set(ControlMode.PercentOutput, value);
-
-		if (value > 0) {
-			this.isRaising = true;
-			this.isLowering = false;
-		} else {
-			this.isRaising = false;
-			this.isLowering = true;
-		}
+  // sets the talon to a specific percent output 
+  public void set(double value) { 
+		talon.set(ControlMode.PercentOutput, value);
+	  	if (value > 0) {
+			  isRaising = true;
+			  isLowering = false;
+      }   
+      else {
+		  	isRaising = false;
+			  isLowering = true;
+    }
   }
   
   public void setPID(double P, double I, double D) {
-    if(usePID()){
-		this.talon.selectProfileSlot(elevatorIndex, 0);
-		this.talon.config_kP(elevatorIndex, P, TIMEOUT_MS);
-		this.talon.config_kI(elevatorIndex, I, TIMEOUT_MS);
-    this.talon.config_kD(elevatorIndex, D, TIMEOUT_MS);
+    if(usePID())
+    {
+	  	talon.selectProfileSlot(elevatorIndex, 0);
+		  talon.config_kP(elevatorIndex, P);
+		  talon.config_kI(elevatorIndex, I);
+      talon.config_kD(elevatorIndex, D);
     }
   }
 
@@ -99,59 +99,60 @@ public class Elevator extends Subsystem {
   public void enablePID(){
     PIDmode = true;
   }
+
   public void diablePID(){
     PIDmode = false;
   }
 
-  
-  public void setHeight(double height){//sets the current height of the elevator to the new desired height
+  //sets the current height of the elevator to the new desired height
+  public void setHeight(double height){
 
-      double newHeight = (height - this.getHeight())* UNITS_PER_INCH;
-      this.talon.set(ControlMode.MotionMagic, newHeight);
+      double newHeight = (height - getHeight())* UNITS_PER_INCH;
+      talon.set(ControlMode.MotionMagic, newHeight);
 
       if (newHeight > 0) {
-        this.isRaising = true;
-        this.isLowering = false;
+        isRaising = true;
+        isLowering = false;
       } else {
-        this.isRaising = false;
-        this.isLowering = true;
+        isRaising = false;
+        isLowering = true;
       }
 
   }
 
-  public double getRawUnits() {//returns the raw encoder values
-		return this.talon.getSelectedSensorPosition(0);
+  //returns the raw encoder values
+  public double getRawUnits() {
+		return talon.getSelectedSensorPosition(0);
   }
   
-  public double getHeight() {//returns the position of the encoder in inches
-		return this.talon.getSelectedSensorPosition(0) / UNITS_PER_INCH;
+  //returns the position of the encoder in inches
+  public double getHeight() {
+		return talon.getSelectedSensorPosition(0) / UNITS_PER_INCH;
   }
   
-  public double getSpeed() {// returns velocity of the talon.
-		return this.talon.getSelectedSensorVelocity(0);
+  // returns velocity of the talon.
+  public double getSpeed() {
+		return talon.getSelectedSensorVelocity(0);
   }
-
-  public void zeroEncoder() {
-		this.talon.getSensorCollection().setQuadraturePosition(0, TIMEOUT_MS);
-	}
   
   public void enableBrakeMode() {
-		this.talon.setNeutralMode(NeutralMode.Brake);
+		talon.setNeutralMode(NeutralMode.Brake);
 	}
 
 	public void disableBrakeMode() {
-		this.talon.setNeutralMode(NeutralMode.Coast);
+		talon.setNeutralMode(NeutralMode.Coast);
   }
   
   public void stop() {
-		this.set(0);
-	}
+		set(0);
+  }
+  
   public boolean isRaising() {
-		return this.isRaising;
+		return isRaising;
 	}
 
 	public boolean isLowering() {
-		return this.isLowering;
+		return isLowering;
 	}
 
 }

@@ -8,22 +8,33 @@
 package com.frcteam1939.deepspace2019.robot.commands.elevator;
 
 import com.frcteam1939.deepspace2019.robot.Robot;
-import com.frcteam1939.deepspace2019.util.Wait;
 
-import edu.wpi.first.hal.sim.mockdata.RoboRioDataJNI;
-import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.Command;
+import com.frcteam1939.deepspace2019.robot.DistanceConstants;
 
-public class ElevatorToMiddle extends CommandGroup {
-  private static final double TIME_TO_MIDDLE = .5;
-  public ElevatorToMiddle() {
-    if(Robot.elevator.usePID()){
-      addSequential(new ElevatorToTopPID());
+public class ElevatorToMiddlePID extends Command {
+  public ElevatorToMiddlePID() {}
+
+  @Override
+  protected void initialize() {
   }
-  else{
 
-      addSequential(new SetElevatorMotorSpeed(1));
-      addSequential(new Wait(TIME_TO_MIDDLE));
-      addSequential(new SetElevatorMotorSpeed(0));
+  @Override
+  protected void execute() {
+    Robot.elevator.setHeight(DistanceConstants.elevatorLevelTwoPosition);
   }
+
+  @Override
+  protected boolean isFinished() {
+    return false;
+  }
+
+  @Override
+  protected void end() {
+  }
+
+  @Override
+  protected void interrupted() {
+    Robot.elevator.set(0);
   }
 }

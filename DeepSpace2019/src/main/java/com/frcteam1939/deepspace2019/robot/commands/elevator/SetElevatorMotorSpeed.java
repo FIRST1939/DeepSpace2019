@@ -6,52 +6,39 @@
 /*----------------------------------------------------------------------------*/
 
 package com.frcteam1939.deepspace2019.robot.commands.elevator;
+
 import com.frcteam1939.deepspace2019.robot.Robot;
+
 import edu.wpi.first.wpilibj.command.Command;
 
+public class SetElevatorMotorSpeed extends Command {
+      private double speed = 0;
 
-public class ElevatorGamepadControl extends Command {
-  public ElevatorGamepadControl() {
+  public SetElevatorMotorSpeed(double value) {
       requires(Robot.elevator);
+      this.speed = value;
   }
 
   @Override
-  protected void initialize() {}
+  protected void initialize() {
+      Robot.elevator.set(speed);
+  }
 
   @Override
   protected void execute() {
-   
-      double move = -Robot.oi.gamepad.getRightY();
-      Robot.elevator.set(move);
-
-      if (Robot.oi.gamepad.back.get()) {
-			  Robot.elevator.stop();
-      }
-
-      if(Robot.elevator.usePID()){
-        Robot.oi.gamepad.a.whenPressed(new ElevatorToBottomPID());
-        Robot.oi.gamepad.b.whenPressed(new ElevatorToMiddlePID());
-        Robot.oi.gamepad.y.whenPressed(new ElevatorToTopPID());
-     }
-     else{
-        Robot.oi.gamepad.b.whenPressed(new ElevatorToMiddle());
-        Robot.oi.gamepad.y.whenPressed(new ElevatorToTop());
-     }
-    
+      Robot.elevator.set(speed);
   }
 
   @Override
   protected boolean isFinished() {
-        return false;
+      return false;
   }
 
   @Override
   protected void end() {
-        Robot.elevator.stop();
   }
 
   @Override
   protected void interrupted() {
-        Robot.elevator.stop();
   }
 }
