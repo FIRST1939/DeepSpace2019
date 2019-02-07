@@ -8,6 +8,7 @@
 package com.frcteam1939.deepspace2019.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.frcteam1939.deepspace2019.robot.RobotMap;
 import com.frcteam1939.deepspace2019.robot.commands.arm.ArmGamepadControl;
@@ -59,6 +60,18 @@ public class Arm extends Subsystem {
 
   public void set(double value){
     talon.set(ControlMode.PercentOutput, value);
+  }
+
+  public void stop(){
+    set(0);
+  }
+
+  public void enableBrakeMode(){
+    talon.setNeutralMode(NeutralMode.Brake);
+  }
+
+  public void disableBrakeMode(){
+    talon.setNeutralMode(NeutralMode.Coast);
   }
 
   public double getPotentiometer(){

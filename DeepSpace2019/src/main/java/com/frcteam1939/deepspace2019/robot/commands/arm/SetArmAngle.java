@@ -11,34 +11,41 @@ import com.frcteam1939.deepspace2019.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class SetArmMotorSpeed extends Command {
+public class SetArmAngle extends Command {
 
-  private double output;
+  private double angle;
 
-  public SetArmMotorSpeed(double value) {
+  public SetArmAngle(double angle) {
     requires(Robot.arm);
-    output = value;
+    this.angle = angle;
   }
 
   @Override
   protected void initialize() {
-    Robot.arm.set(output);
+    Robot.arm.armPID.reset();
+    Robot.arm.armPID.enable();
+
+    double newAngle = angle - Robot.arm.getPotentiometer();
+    Robot.arm.armPID.setSetpoint(newAngle);
   }
 
   @Override
   protected void execute() {
+    Robot.arm.set(Robot.arm.armPID.get());
   }
 
   @Override
   protected boolean isFinished() {
-    return true;
+    return Math.abs(angle - Robot.arm.getPotentiometer()) < 0.25;
   }
 
   @Override
   protected void end() {
+    Robot.arm.stop();
   }
 
   @Override
   protected void interrupted() {
+    Robot.arm.stop();
   }
 }
