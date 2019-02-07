@@ -14,6 +14,7 @@ import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.frcteam1939.deepspace2019.robot.RobotMap;
 import com.frcteam1939.deepspace2019.robot.commands.drivetrain.DriveByJoystick;
+import com.frcteam1939.deepspace2019.util.Limelight;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -42,6 +43,8 @@ public class Drivetrain extends Subsystem {
   private CANSparkMax sidewinder = new CANSparkMax(RobotMap.sidewinderSpark, MotorType.kBrushless);
 
   private DoubleSolenoid sidewinderSolenoid = new DoubleSolenoid(RobotMap.sidewinderUpSolenoid, RobotMap.sidewinderDownSolenoid);
+
+  public Limelight limelight = new Limelight();
 
   public Drivetrain(){
     setupMasterTalons();
