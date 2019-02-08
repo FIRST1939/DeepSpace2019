@@ -12,10 +12,14 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.frcteam1939.deepspace2019.robot.Robot;
 import com.frcteam1939.deepspace2019.robot.RobotMap;
 import com.frcteam1939.deepspace2019.robot.commands.elevator.ElevatorGamepadControl;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Elevator extends Subsystem {
 
@@ -27,11 +31,25 @@ public class Elevator extends Subsystem {
   private static final double I = 0;
   private static final double D = 0;
 
+  private static final double F = 0;
+
+  //private static final STALL_CURRENT = 131;
+  //private static final double STALL_TORQUE = 2.41;
+  
+
   boolean PIDmode = false;
 
   private static int elevatorIndex = 0;
 
-  private TalonSRX talon = new TalonSRX(RobotMap.elevatorTalon); // Initializes elevator talon
+   // Initializes elevator talon & Sensors
+  private TalonSRX talon = new TalonSRX(RobotMap.elevatorTalon);
+  private DigitalInput isAtBottom = new DigitalInput(RobotMap.elevatorAtBottom);
+  private DigitalInput isAtTop = new DigitalInput(RobotMap.elevatorAtTop);
+  private DigitalInput isAtMiddle= new DigitalInput(RobotMap.elevatorAtMiddle);
+
+   
+   
+
 
   public Elevator(){
 
@@ -55,6 +73,11 @@ public class Elevator extends Subsystem {
     talon.config_kP(elevatorIndex, P);
 		talon.config_kI(elevatorIndex, I);
     talon.config_kD(elevatorIndex, D);
+
+
+  
+   
+    //LiveWindow.addActuator("Elevator", "PIDSubsytem Controller",this.P);
   }
  
   @Override
@@ -120,4 +143,18 @@ public class Elevator extends Subsystem {
   public void stop() {
 		set(0);
   }
+
+  public boolean isAtTop() {
+		return isAtTop.get();
+	}
+
+	public boolean isAtBottom() {
+		return isAtBottom.get();
+	}
+
+	public boolean isAtMiddle() {
+		return isAtMiddle.get();
+	}
+
+	
 }

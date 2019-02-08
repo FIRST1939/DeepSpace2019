@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class SmartDashboardUpdater extends Command {
+
   public SmartDashboardUpdater() {
     requires(Robot.smartDashboard);
   }
@@ -23,6 +24,8 @@ public class SmartDashboardUpdater extends Command {
 
   @Override
   protected void execute() {
+
+    // Adds data into the Smart Dashboard to display on the drivestation computer
 
     SmartDashboard.putNumber("Left Velocity", Robot.drivetrain.getLeftVelocity());
 		SmartDashboard.putNumber("Left Position", Robot.drivetrain.getLeftPosition());
@@ -37,6 +40,10 @@ public class SmartDashboardUpdater extends Command {
     SmartDashboard.putNumber("Heading", Robot.drivetrain.getHeading());
     SmartDashboard.putNumber("Potentiometer Reading", Robot.arm.getPotentiometer());
 
+    SmartDashboard.putBoolean("Elevator is at top", Robot.elevator.isAtTop());
+    SmartDashboard.putBoolean("Elevator is at Bottom", Robot.elevator.isAtBottom());
+    SmartDashboard.putBoolean("Elevator is at Middle", Robot.elevator.isAtMiddle());
+
     SmartDashboard.putNumber("Vision Horizontal Error", Robot.drivetrain.limelight.getHorizontalAngleError());
     SmartDashboard.putNumber("Vision Vertical Error", Robot.drivetrain.limelight.getVerticalAngleError());
     SmartDashboard.putNumber("Vision Target Area", Robot.drivetrain.limelight.getTargetArea());
@@ -50,6 +57,7 @@ public class SmartDashboardUpdater extends Command {
     SmartDashboard.putNumber("Vision LED Mode", Robot.drivetrain.limelight.getLEDMode());
 
     SmartDashboard.putBoolean("Vision Has Found Target", Robot.drivetrain.limelight.isTargetFound());
+
   }
 
   @Override

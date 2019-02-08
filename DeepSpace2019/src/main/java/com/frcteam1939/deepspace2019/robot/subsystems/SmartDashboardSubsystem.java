@@ -13,7 +13,6 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class SmartDashboardSubsystem extends Subsystem {
-
   @Override
   public void initDefaultCommand() {
 		Command command = new SmartDashboardUpdater();
@@ -21,4 +20,5 @@ public class SmartDashboardSubsystem extends Subsystem {
 
 		setDefaultCommand(command);
   }
+
 }

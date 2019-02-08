@@ -24,4 +24,11 @@ public class RobotMap {
 
   // Analog Input
   public static final int potentiometer = 0;
+
+  // Digital Input
+  public static final int elevatorAtBottom = 0;
+  public static final int elevatorAtTop = 0;
+  public static final int elevatorAtMiddle = 0;
+  
+
 }
