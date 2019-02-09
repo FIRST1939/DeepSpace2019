@@ -33,11 +33,9 @@ public class ArmGamepadControl extends Command {
 
   @Override
   protected void end() {
-    Robot.arm.stop();
   }
 
   @Override
   protected void interrupted() {
-    Robot.arm.stop();
   }
 }
