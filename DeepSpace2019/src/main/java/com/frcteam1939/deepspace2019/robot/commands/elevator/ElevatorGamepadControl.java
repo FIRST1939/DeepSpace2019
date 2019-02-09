@@ -25,13 +25,13 @@ public class ElevatorGamepadControl extends Command {
       Robot.elevator.set(move);
 
       if(Robot.elevator.usePID()){
-        Robot.oi.gamepad.a.whenPressed(new ElevatorToBottomPID());
-        Robot.oi.gamepad.b.whenPressed(new ElevatorToMiddlePID());
-        Robot.oi.gamepad.y.whenPressed(new ElevatorToTopPID());
+        // Robot.oi.gamepad.a.whenPressed(new ElevatorToBottomPID());
+        // Robot.oi.gamepad.b.whenPressed(new ElevatorToMiddlePID());
+        // Robot.oi.gamepad.y.whenPressed(new ElevatorToTopPID());
      }
      else{
-        Robot.oi.gamepad.b.whenPressed(new ElevatorToMiddle());
-        Robot.oi.gamepad.y.whenPressed(new ElevatorToTop());
+        // Robot.oi.gamepad.b.whenPressed(new ElevatorToMiddle());
+        // Robot.oi.gamepad.y.whenPressed(new ElevatorToTop());
      }
   }
 
@@ -42,11 +42,9 @@ public class ElevatorGamepadControl extends Command {
 
   @Override
   protected void end() {
-        Robot.elevator.stop();
   }
 
   @Override
   protected void interrupted() {
-        Robot.elevator.stop();
   }
 }

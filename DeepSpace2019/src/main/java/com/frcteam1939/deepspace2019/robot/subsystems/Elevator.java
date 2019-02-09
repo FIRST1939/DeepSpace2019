@@ -12,14 +12,11 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.frcteam1939.deepspace2019.robot.Robot;
 import com.frcteam1939.deepspace2019.robot.RobotMap;
 import com.frcteam1939.deepspace2019.robot.commands.elevator.ElevatorGamepadControl;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Elevator extends Subsystem {
 
@@ -33,10 +30,9 @@ public class Elevator extends Subsystem {
 
   private static final double F = 0;
 
-  //private static final STALL_CURRENT = 131;
-  //private static final double STALL_TORQUE = 2.41;
+  private static final double STALL_CURRENT = 131;
+  private static final double STALL_TORQUE = 2.41;
   
-
   boolean PIDmode = false;
 
   private static int elevatorIndex = 0;
@@ -46,10 +42,6 @@ public class Elevator extends Subsystem {
   private DigitalInput isAtBottom = new DigitalInput(RobotMap.elevatorAtBottom);
   private DigitalInput isAtTop = new DigitalInput(RobotMap.elevatorAtTop);
   private DigitalInput isAtMiddle= new DigitalInput(RobotMap.elevatorAtMiddle);
-
-   
-   
-
 
   public Elevator(){
 
@@ -70,14 +62,10 @@ public class Elevator extends Subsystem {
 		talon.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10);
 
     // Sets up PID for elevator
+    talon.config_kF(elevatorIndex, F);
     talon.config_kP(elevatorIndex, P);
 		talon.config_kI(elevatorIndex, I);
     talon.config_kD(elevatorIndex, D);
-
-
-  
-   
-    //LiveWindow.addActuator("Elevator", "PIDSubsytem Controller",this.P);
   }
  
   @Override
@@ -92,7 +80,8 @@ public class Elevator extends Subsystem {
   
   public void setPID(double P, double I, double D) {
     if(usePID()){
-	  	talon.selectProfileSlot(elevatorIndex, 0);
+      talon.selectProfileSlot(elevatorIndex, 0);
+      talon.config_kF(elevatorIndex, F);
 		  talon.config_kP(elevatorIndex, P);
 		  talon.config_kI(elevatorIndex, I);
       talon.config_kD(elevatorIndex, D);
@@ -115,6 +104,11 @@ public class Elevator extends Subsystem {
   public void setHeight(double height){
       double newHeight = (height - getHeight()) * UNITS_PER_INCH;
       talon.set(ControlMode.MotionMagic, newHeight);
+  }
+
+  public void setEncoderHeight(double height){
+    double newHeight = height * UNITS_PER_INCH;
+    talon.setSelectedSensorPosition((int) newHeight);
   }
 
   // Returns the position of the encoder in raw encoder values
@@ -155,6 +149,4 @@ public class Elevator extends Subsystem {
 	public boolean isAtMiddle() {
 		return isAtMiddle.get();
 	}
-
-	
 }

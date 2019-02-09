@@ -31,6 +31,7 @@ public class ElevatorToMiddlePID extends Command {
 
   @Override
   protected void end() {
+    Robot.elevator.set(0);
   }
 
   @Override

@@ -21,11 +21,11 @@ public class SetElevatorMotorSpeed extends Command {
 
   @Override
   protected void initialize() {
-      Robot.elevator.set(speed);
   }
 
   @Override
   protected void execute() {
+    Robot.elevator.set(speed);
   }
 
   @Override
