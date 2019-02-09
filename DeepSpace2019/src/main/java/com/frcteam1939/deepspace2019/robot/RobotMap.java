@@ -8,6 +8,7 @@
 package com.frcteam1939.deepspace2019.robot;
 
 public class RobotMap {
+  
   // Talons/Victors
 	public static final int leftFrontTalon = 0;
 	public static final int leftBackTalon = 0;
@@ -17,6 +18,9 @@ public class RobotMap {
   public static final int elevatorTalon = 0;
   public static final int armTalon = 0;
   public static final int rollerTalon = 0;
+  public static final int skiTalon = 0;
+  public static final int rackGearTalon = 0;
+  public static final int climberWheelsTalon = 0;
   
   // Solenoids
 	public static final int PCM = 0;
