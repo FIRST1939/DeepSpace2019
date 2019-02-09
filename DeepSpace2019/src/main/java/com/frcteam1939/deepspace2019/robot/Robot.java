@@ -10,6 +10,7 @@ package com.frcteam1939.deepspace2019.robot;
 import com.frcteam1939.deepspace2019.robot.subsystems.Arm;
 import com.frcteam1939.deepspace2019.robot.subsystems.Drivetrain;
 import com.frcteam1939.deepspace2019.robot.subsystems.Manipulator;
+import com.frcteam1939.deepspace2019.robot.subsystems.Elevator;
 import com.frcteam1939.deepspace2019.robot.subsystems.SmartDashboardSubsystem;
 
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -21,6 +22,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends TimedRobot {
 
   public static Drivetrain drivetrain;
+  public static Elevator elevator;
   public static SmartDashboardSubsystem smartDashboard;
   public static Arm arm;
   public static Manipulator manipulator;
@@ -28,6 +30,7 @@ public class Robot extends TimedRobot {
 	static {
 		try {
       drivetrain = new Drivetrain();
+      elevator = new Elevator();
       smartDashboard = new SmartDashboardSubsystem();
       arm = new Arm();
       manipulator = new Manipulator();
@@ -62,6 +65,7 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledInit() {
     Robot.drivetrain.disableBrakeMode();
+    
   }
 
   @Override
@@ -78,6 +82,7 @@ public class Robot extends TimedRobot {
     }
 
     Robot.drivetrain.enableBrakeMode();
+    Robot.drivetrain.enableBrakeMode();
   }
 
   @Override
@@ -92,6 +97,7 @@ public class Robot extends TimedRobot {
     }
 
     Robot.drivetrain.enableBrakeMode();
+    Robot.elevator.enableBrakeMode();
   }
 
   @Override
