@@ -14,19 +14,25 @@ import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.frcteam1939.deepspace2019.robot.RobotMap;
 import com.frcteam1939.deepspace2019.robot.commands.drivetrain.DriveByJoystick;
+import com.frcteam1939.deepspace2019.util.Limelight;
+import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.PIDSourceType;
+import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Drivetrain extends Subsystem {
 
-  private static final int WHEEL_DIAMETER = 6;
+  private static final double WHEEL_DIAMETER = 6.0;
   private static final double WHEEL_CIRCUMFERENCE = WHEEL_DIAMETER * Math.PI;
+  private static final double MAX_TURN_OUTPUT = 0.25;
 
-  private static final int MAX_SPEED = 0;
+  private static final double MAX_SPEED = 0.0;
 
   private static final int CPR = 0;
 
@@ -34,6 +40,12 @@ public class Drivetrain extends Subsystem {
   private static final double posP = 0;
   private static final double posI = 0;
   private static final double posD = 0;
+
+  public PIDController turnPID;
+	private static final double turnF = 0.0;
+	private static final double turnP = 0.0;
+	private static final double turnI = 0.0;
+	private static final double turnD = 0.0;
 
   private TalonSRX frontLeft = new TalonSRX(RobotMap.leftFrontTalon);
   private TalonSRX backLeft = new TalonSRX(RobotMap.leftBackTalon);
@@ -43,10 +55,23 @@ public class Drivetrain extends Subsystem {
 
   private DoubleSolenoid sidewinderSolenoid = new DoubleSolenoid(RobotMap.sidewinderUpSolenoid, RobotMap.sidewinderDownSolenoid);
 
+  private AHRS navx;
+  public Limelight limelight = new Limelight();
+
   public Drivetrain(){
     setupMasterTalons();
+
     backLeft.follow(frontLeft);
     backRight.follow(frontRight);
+
+    navx = new AHRS(Port.kUSB);
+		navx.setPIDSourceType(PIDSourceType.kDisplacement);
+		turnPID = new PIDController(turnP, turnI, turnD, turnF, navx, output -> {});
+		turnPID.setInputRange(-180, 180);
+		turnPID.setContinuous(true);
+		turnPID.setOutputRange(-MAX_TURN_OUTPUT, MAX_TURN_OUTPUT);
+		turnPID.setSetpoint(0);
+		turnPID.enable();
   }
   @Override
   public void initDefaultCommand() {
@@ -54,6 +79,10 @@ public class Drivetrain extends Subsystem {
   }
 
   // Get Methods 
+
+  public boolean isMoving() {
+		return Math.abs(this.getLeftVelocity()) > 1 || Math.abs(this.getRightVelocity()) > 1;
+	}
 
   public double getLeftPosition(){
     return frontLeft.getSelectedSensorPosition();
@@ -70,6 +99,38 @@ public class Drivetrain extends Subsystem {
   public double getRightVelocity(){
     return frontRight.getSelectedSensorVelocity();
   }
+
+  public double getLeftPercentOutput(){
+    return frontLeft.getMotorOutputPercent();
+  }
+
+  public double getRightPercentOutput(){
+    return frontRight.getMotorOutputPercent();
+  }
+
+  public double getLeftVoltage(){
+    return frontLeft.getMotorOutputVoltage();
+  }
+
+  public double getRightVoltage(){
+    return frontRight.getMotorOutputVoltage();
+  }
+
+  public double getHeading() {
+		if (navx.isConnected()) {
+			return navx.pidGet();
+		} else {
+			return 0;
+		}
+	}
+
+	public double getTurnSpeed() {
+		if (navx.isConnected()) {
+			return navx.getRate();
+		} else {
+			return 0;
+		}
+	}
 
   // Set Methods
 

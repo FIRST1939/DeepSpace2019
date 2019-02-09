@@ -8,7 +8,10 @@
 package com.frcteam1939.deepspace2019.robot;
 
 import com.frcteam1939.deepspace2019.robot.subsystems.Climber;
+import com.frcteam1939.deepspace2019.robot.subsystems.Arm;
 import com.frcteam1939.deepspace2019.robot.subsystems.Drivetrain;
+import com.frcteam1939.deepspace2019.robot.subsystems.Manipulator;
+import com.frcteam1939.deepspace2019.robot.subsystems.Elevator;
 import com.frcteam1939.deepspace2019.robot.subsystems.SmartDashboardSubsystem;
 
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -20,14 +23,20 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends TimedRobot {
 
   public static Drivetrain drivetrain;
+  public static Elevator elevator;
   public static SmartDashboardSubsystem smartDashboard;
   public static Climber climber;
+  public static Arm arm;
+  public static Manipulator manipulator;
 
 	static {
 		try {
       drivetrain = new Drivetrain();
+      elevator = new Elevator();
       smartDashboard = new SmartDashboardSubsystem();
       climber = new Climber();
+      arm = new Arm();
+      manipulator = new Manipulator();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -59,6 +68,8 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledInit() {
     Robot.drivetrain.disableBrakeMode();
+    Robot.elevator.disableBrakeMode();
+    Robot.arm.disableBrakeMode();
   }
 
   @Override
@@ -75,6 +86,8 @@ public class Robot extends TimedRobot {
     }
 
     Robot.drivetrain.enableBrakeMode();
+    Robot.elevator.enableBrakeMode();
+    Robot.arm.enableBrakeMode();
   }
 
   @Override
@@ -89,6 +102,8 @@ public class Robot extends TimedRobot {
     }
 
     Robot.drivetrain.enableBrakeMode();
+    Robot.elevator.enableBrakeMode();
+    Robot.arm.enableBrakeMode();
   }
 
   @Override

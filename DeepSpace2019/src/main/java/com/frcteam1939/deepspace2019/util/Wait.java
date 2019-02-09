@@ -5,20 +5,37 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package com.frcteam1939.deepspace2019.robot.subsystems;
-
-import com.frcteam1939.deepspace2019.robot.commands.smartdashboard.SmartDashboardUpdater;
+package com.frcteam1939.deepspace2019.util;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.Subsystem;
 
-public class SmartDashboardSubsystem extends Subsystem {
-  @Override
-  public void initDefaultCommand() {
-		Command command = new SmartDashboardUpdater();
-		command.setRunWhenDisabled(true);
+public class Wait extends Command {
 
-		setDefaultCommand(command);
+  private double timeout;
+
+  public Wait(double timeout) {
+    this.timeout = timeout;
   }
 
+  @Override
+  protected void initialize() {
+    this.setTimeout(timeout);
+  }
+
+  @Override
+  protected void execute() {
+  }
+
+  @Override
+  protected boolean isFinished() {
+    return this.isTimedOut();
+  }
+
+  @Override
+  protected void end() {
+  }
+
+  @Override
+  protected void interrupted() {
+  }
 }

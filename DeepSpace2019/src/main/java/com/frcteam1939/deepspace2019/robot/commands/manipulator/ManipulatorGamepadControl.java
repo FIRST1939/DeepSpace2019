@@ -5,20 +5,35 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package com.frcteam1939.deepspace2019.robot.subsystems;
+package com.frcteam1939.deepspace2019.robot.commands.manipulator;
 
-import com.frcteam1939.deepspace2019.robot.commands.smartdashboard.SmartDashboardUpdater;
+import com.frcteam1939.deepspace2019.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.Subsystem;
 
-public class SmartDashboardSubsystem extends Subsystem {
-  @Override
-  public void initDefaultCommand() {
-		Command command = new SmartDashboardUpdater();
-		command.setRunWhenDisabled(true);
-
-		setDefaultCommand(command);
+public class ManipulatorGamepadControl extends Command {
+  public ManipulatorGamepadControl() {
+    requires(Robot.manipulator);
   }
 
+  @Override
+  protected void initialize() {
+  }
+
+  @Override
+  protected void execute() {
+  }
+
+  @Override
+  protected boolean isFinished() {
+    return false;
+  }
+
+  @Override
+  protected void end() {
+  }
+
+  @Override
+  protected void interrupted() {
+  }
 }
