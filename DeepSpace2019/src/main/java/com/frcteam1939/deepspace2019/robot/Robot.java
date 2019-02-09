@@ -7,6 +7,7 @@
 
 package com.frcteam1939.deepspace2019.robot;
 
+import com.frcteam1939.deepspace2019.robot.subsystems.Climber;
 import com.frcteam1939.deepspace2019.robot.subsystems.Arm;
 import com.frcteam1939.deepspace2019.robot.subsystems.Drivetrain;
 import com.frcteam1939.deepspace2019.robot.subsystems.Manipulator;
@@ -24,6 +25,7 @@ public class Robot extends TimedRobot {
   public static Drivetrain drivetrain;
   public static Elevator elevator;
   public static SmartDashboardSubsystem smartDashboard;
+  public static Climber climber;
   public static Arm arm;
   public static Manipulator manipulator;
 
@@ -32,6 +34,7 @@ public class Robot extends TimedRobot {
       drivetrain = new Drivetrain();
       elevator = new Elevator();
       smartDashboard = new SmartDashboardSubsystem();
+      climber = new Climber();
       arm = new Arm();
       manipulator = new Manipulator();
 		} catch (Exception e) {
@@ -49,7 +52,7 @@ public class Robot extends TimedRobot {
 
     System.out.println("\n==========================================");
     System.out.println("Destination: Deep Space 2019 Intializing");
-    
+
     // chooser.setDefaultOption("Default Auto", new ExampleCommand());
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Autonomous Chooser", chooser);
