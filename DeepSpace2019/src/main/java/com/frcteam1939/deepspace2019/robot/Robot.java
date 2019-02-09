@@ -9,6 +9,7 @@ package com.frcteam1939.deepspace2019.robot;
 
 import com.frcteam1939.deepspace2019.robot.subsystems.Arm;
 import com.frcteam1939.deepspace2019.robot.subsystems.Drivetrain;
+import com.frcteam1939.deepspace2019.robot.subsystems.Manipulator;
 import com.frcteam1939.deepspace2019.robot.subsystems.SmartDashboardSubsystem;
 
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -22,12 +23,14 @@ public class Robot extends TimedRobot {
   public static Drivetrain drivetrain;
   public static SmartDashboardSubsystem smartDashboard;
   public static Arm arm;
+  public static Manipulator manipulator;
 
 	static {
 		try {
       drivetrain = new Drivetrain();
       smartDashboard = new SmartDashboardSubsystem();
       arm = new Arm();
+      manipulator = new Manipulator();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
