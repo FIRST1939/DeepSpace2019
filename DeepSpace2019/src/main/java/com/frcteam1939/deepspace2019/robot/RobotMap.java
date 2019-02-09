@@ -29,6 +29,4 @@ public class RobotMap {
   public static final int elevatorAtBottom = 0;
   public static final int elevatorAtTop = 0;
   public static final int elevatorAtMiddle = 0;
-  
-
 }

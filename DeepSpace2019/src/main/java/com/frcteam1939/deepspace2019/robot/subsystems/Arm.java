@@ -19,9 +19,6 @@ import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-/**
- * Add your docs here.
- */
 public class Arm extends Subsystem {
 
   private TalonSRX talon = new TalonSRX(RobotMap.armTalon);
