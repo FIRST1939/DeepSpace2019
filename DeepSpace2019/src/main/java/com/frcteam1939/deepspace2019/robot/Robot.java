@@ -65,7 +65,8 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledInit() {
     Robot.drivetrain.disableBrakeMode();
-    
+    Robot.elevator.disableBrakeMode();
+    Robot.arm.disableBrakeMode();
   }
 
   @Override
@@ -82,7 +83,8 @@ public class Robot extends TimedRobot {
     }
 
     Robot.drivetrain.enableBrakeMode();
-    Robot.drivetrain.enableBrakeMode();
+    Robot.elevator.enableBrakeMode();
+    Robot.arm.enableBrakeMode();
   }
 
   @Override
@@ -98,6 +100,7 @@ public class Robot extends TimedRobot {
 
     Robot.drivetrain.enableBrakeMode();
     Robot.elevator.enableBrakeMode();
+    Robot.arm.enableBrakeMode();
   }
 
   @Override
