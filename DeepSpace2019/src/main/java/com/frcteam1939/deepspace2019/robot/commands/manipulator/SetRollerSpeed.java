@@ -5,19 +5,19 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package com.frcteam1939.deepspace2019.robot.commands.arm;
+package com.frcteam1939.deepspace2019.robot.commands.manipulator;
 
 import com.frcteam1939.deepspace2019.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class SetArmMotorSpeed extends Command {
+public class SetRollerSpeed extends Command {
 
-  private double output;
+  private double speed;
 
-  public SetArmMotorSpeed(double value) {
-    requires(Robot.arm);
-    output = value;
+  public SetRollerSpeed(double value) {
+    requires(Robot.manipulator);
+    speed = value;
   }
 
   @Override
@@ -26,7 +26,7 @@ public class SetArmMotorSpeed extends Command {
 
   @Override
   protected void execute() {
-    Robot.arm.set(output);
+    Robot.manipulator.setRoller(speed);
   }
 
   @Override
