@@ -14,6 +14,7 @@ public class RobotMap {
 	public static final int rightFrontTalon = 0;
   public static final int rightBackTalon = 0;
   public static final int sidewinderSpark = 0;
+  public static final int elevatorTalon = 0;
   public static final int armTalon = 0;
   
   // Solenoids
@@ -23,4 +24,11 @@ public class RobotMap {
 
   // Analog Input
   public static final int potentiometer = 0;
+
+  // Digital Input
+  public static final int elevatorAtBottom = 0;
+  public static final int elevatorAtTop = 0;
+  public static final int elevatorAtMiddle = 0;
+  
+
 }
