@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 public class Arm extends Subsystem {
 
@@ -42,6 +43,8 @@ public class Arm extends Subsystem {
     armPID.setOutputRange(-MAX_OUTPUT, MAX_OUTPUT);
     armPID.setSetpoint(0);
     armPID.enable();
+    LiveWindow.addActuator("Arm", "PIDSubsystem Controller", armPID);
+    
 
     talon.configNominalOutputForward(+0);
 		talon.configNominalOutputReverse(-0);

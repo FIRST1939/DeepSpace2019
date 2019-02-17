@@ -24,6 +24,7 @@ import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Drivetrain extends Subsystem {
@@ -71,7 +72,9 @@ public class Drivetrain extends Subsystem {
 		turnPID.setContinuous(true);
 		turnPID.setOutputRange(-MAX_TURN_OUTPUT, MAX_TURN_OUTPUT);
 		turnPID.setSetpoint(0);
-		turnPID.enable();
+    turnPID.enable();
+    LiveWindow.addActuator("Turn PID", "PIDSubsystem Controller", turnPID);
+    
   }
   @Override
   public void initDefaultCommand() {

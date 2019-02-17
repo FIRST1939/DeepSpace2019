@@ -57,7 +57,7 @@ public class SmartDashboardUpdater extends Command {
     SmartDashboard.putNumber("Vision LED Mode", Robot.drivetrain.limelight.getLEDMode());
 
     SmartDashboard.putBoolean("Vision Has Found Target", Robot.drivetrain.limelight.isTargetFound());
-
+   
   }
 
   @Override
