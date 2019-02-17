@@ -8,6 +8,7 @@
 package com.frcteam1939.deepspace2019.robot;
 
 import com.frcteam1939.deepspace2019.robot.subsystems.Climber;
+import com.frcteam1939.deepspace2019.robot.commands.elevator.TuneElevatorPID;
 import com.frcteam1939.deepspace2019.robot.subsystems.Arm;
 import com.frcteam1939.deepspace2019.robot.subsystems.Drivetrain;
 import com.frcteam1939.deepspace2019.robot.subsystems.Manipulator;
@@ -56,6 +57,7 @@ public class Robot extends TimedRobot {
     // chooser.setDefaultOption("Default Auto", new ExampleCommand());
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Autonomous Chooser", chooser);
+    SmartDashboard.putData("Elevator PID", new TuneElevatorPID());
 
     System.out.println("           Finished Intializing");
 		System.out.println("==========================================/n");
@@ -104,6 +106,7 @@ public class Robot extends TimedRobot {
     Robot.drivetrain.enableBrakeMode();
     Robot.elevator.enableBrakeMode();
     Robot.arm.enableBrakeMode();
+    
   }
 
   @Override

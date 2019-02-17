@@ -15,7 +15,8 @@ public class RobotMap {
 	public static final int rightFrontTalon = 29;
   public static final int rightBackTalon = 0;
   public static final int sidewinderSpark = 0;
-  public static final int elevatorTalon = 0;
+  
+  public static final int elevatorSpark = 0;
   public static final int armTalon = 0;
   public static final int rollerTalon = 0;
   public static final int skiTalon = 0;

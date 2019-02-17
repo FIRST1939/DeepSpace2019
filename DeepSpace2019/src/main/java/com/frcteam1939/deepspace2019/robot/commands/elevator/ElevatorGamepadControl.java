@@ -42,9 +42,11 @@ public class ElevatorGamepadControl extends Command {
 
   @Override
   protected void end() {
+     Robot.elevator.stop();
   }
 
   @Override
   protected void interrupted() {
+   Robot.elevator.stop();
   }
 }
