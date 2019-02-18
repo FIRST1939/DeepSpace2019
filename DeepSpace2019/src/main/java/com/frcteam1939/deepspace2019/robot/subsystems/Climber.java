@@ -61,13 +61,13 @@ public class Climber extends Subsystem {
     /**
      * Sets the percent output of the rackGeatTalon.
      */
-    public void setrackGearSpark(double value) {
+    public void setRackGearSpark(double value) {
       rackGearSpark.set(ControlMode.PercentOutput, value);
     }
     /**
      * Sets the percent output of the climberWheelsTalon.
      */
-    public void setClimberWheels(double value){
+    public void setClimberWheelsTalon(double value){
       climberWheelsTalon.set(ControlMode.PercentOutput, value);
     }
 
@@ -80,7 +80,7 @@ public class Climber extends Subsystem {
     /**
      * Sets the rackGearSpark's neutral state as break.
     */
-    public void setrackGearSparkEnableBrakeMode(){
+    public void setRackGearSparkEnableBrakeMode(){
       rackGearSpark.setNeutralMode(NeutralMode.Brake);
     }
     /**
@@ -99,7 +99,7 @@ public class Climber extends Subsystem {
     /**
      * Sets the rackGearSpark's neutral state as coast.
     */
-    public void setrackGearSparkDisableBrakeMode(){
+    public void setRackGearSparkDisableBrakeMode(){
       rackGearSpark.setNeutralMode(NeutralMode.Coast);
     }
     /**
