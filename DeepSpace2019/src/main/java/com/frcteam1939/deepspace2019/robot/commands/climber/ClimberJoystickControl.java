@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package com.frcteam1939.deepspace2019.robot.commands;
+package com.frcteam1939.deepspace2019.robot.commands.climber;
 
 import com.frcteam1939.deepspace2019.robot.Robot;
 
