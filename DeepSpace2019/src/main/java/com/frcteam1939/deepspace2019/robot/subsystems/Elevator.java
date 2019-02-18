@@ -14,58 +14,65 @@ import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.frcteam1939.deepspace2019.robot.RobotMap;
 import com.frcteam1939.deepspace2019.robot.commands.elevator.ElevatorGamepadControl;
+import com.revrobotics.CANEncoder;
+import com.revrobotics.CANPIDController;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.ControlType;
+import com.revrobotics.CANSparkMax.IdleMode;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Elevator extends Subsystem {
 
-  private static final double MAX_SPEED = 50000;
-  private static final double UNITS_PER_INCH = 22000;
+  public double MAX_VEL = 2000;
+  public double MIN_VEL = 0;
+  public double MAX_OUTPUT = 1;
+  public double MIN_OUTPUT = -1;
+  public double MAX_RPM = 5700;//HOLDER
+  public double MAX_ACCL = 1500;//HOLDER
+  public double ALLOWED_ERR = .01;
+  public double UNITS_PER_INCH = 0.1;
+
 
   // The tuned PID values for the elevator for finite control
-  private static final double P = 0;
-  private static final double I = 0;
-  private static final double D = 0;
+  public double P = 0;
+  public double I = 0;
+  public double D = 0;
 
-  private static final double F = 0;
+  public double izone = 0;
+  public double F = 0;
 
   private static final double STALL_CURRENT = 131;
   private static final double STALL_TORQUE = 2.41;
   
   boolean PIDmode = false;
 
-  private static int elevatorIndex = 0;
+  public static final  int smartMotionSlot = 0;
 
    // Initializes elevator talon & Sensors
-  private TalonSRX talon = new TalonSRX(RobotMap.elevatorTalon);
-  private DigitalInput isAtBottom = new DigitalInput(RobotMap.elevatorAtBottom);
-  private DigitalInput isAtTop = new DigitalInput(RobotMap.elevatorAtTop);
-  private DigitalInput isAtMiddle= new DigitalInput(RobotMap.elevatorAtMiddle);
+  private CANSparkMax spark = new CANSparkMax(RobotMap.elevatorSpark, MotorType.kBrushless);
+  private DigitalInput isAtBottom = new DigitalInput(RobotMap.elevatorAtBottomHallEffect);
+  public CANPIDController sparkPID = spark.getPIDController();
+  public CANEncoder sparkEncoder = spark.getEncoder();
+  
 
   public Elevator(){
-
+   
     //***** ENABLE PID ****\\
     this.enablePID();
     //***** ENABLE PID ****\\
 
-    talon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
-    talon.selectProfileSlot(elevatorIndex, 0);
-    talon.configNominalOutputForward(+0);
-		talon.configNominalOutputReverse(-0);
-		talon.configPeakOutputForward(+1);
-		talon.configPeakOutputReverse(-1);
-		talon.configAllowableClosedloopError(elevatorIndex, 1000);
-		talon.configMotionCruiseVelocity((int) (MAX_SPEED * 0.5));
-		talon.configMotionAcceleration((int) (MAX_SPEED * 0.5));
-		talon.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, 10);
-		talon.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10);
 
     // Sets up PID for elevator
-    talon.config_kF(elevatorIndex, F);
-    talon.config_kP(elevatorIndex, P);
-		talon.config_kI(elevatorIndex, I);
-    talon.config_kD(elevatorIndex, D);
+    sparkPID.setP(P);
+    sparkPID.setI(I);
+    sparkPID.setD(D);
+    sparkPID.setIZone(izone);//Set the IZone range of the PIDF controller on the SPARK MAX. This value specifies the range the |error| must be within for the integral constant to take effect.
+    sparkPID.setFF(F);
+    sparkPID.setOutputRange(MIN_OUTPUT, MAX_OUTPUT);
+    
   }
  
   @Override
@@ -73,18 +80,20 @@ public class Elevator extends Subsystem {
     setDefaultCommand(new ElevatorGamepadControl());
   }
 
-  // Sets the talon to a specific percent output 
+  // Positive is moving up
+  // Negative is moving down
   public void set(double value) { 
-		talon.set(ControlMode.PercentOutput, value);
+		spark.set(-value);
   }
   
   public void setPID(double P, double I, double D) {
     if(usePID()){
-      talon.selectProfileSlot(elevatorIndex, 0);
-      talon.config_kF(elevatorIndex, F);
-		  talon.config_kP(elevatorIndex, P);
-		  talon.config_kI(elevatorIndex, I);
-      talon.config_kD(elevatorIndex, D);
+     
+      sparkPID.setSmartMotionMaxVelocity(MAX_VEL, smartMotionSlot);
+      sparkPID.setSmartMotionMinOutputVelocity(MIN_VEL, smartMotionSlot);
+      sparkPID.setSmartMotionMaxAccel(MAX_ACCL, smartMotionSlot);
+      sparkPID.setSmartMotionAllowedClosedLoopError(ALLOWED_ERR, smartMotionSlot);
+
     }
   }
 
@@ -103,50 +112,46 @@ public class Elevator extends Subsystem {
   // Sets the current height of the elevator to the new desired height
   public void setHeight(double height){
       double newHeight = (height - getHeight()) * UNITS_PER_INCH;
-      talon.set(ControlMode.MotionMagic, newHeight);
+      spark.set(newHeight);
   }
+  public void setHeightPID(double height){
+    double newHeight = (height - getHeight()) * UNITS_PER_INCH;
+    sparkPID.setReference(newHeight, ControlType.kSmartMotion);
+}
 
   public void setEncoderHeight(double height){
     double newHeight = height * UNITS_PER_INCH;
-    talon.setSelectedSensorPosition((int) newHeight);
+    sparkEncoder.setPosition((int) newHeight);
   }
 
   // Returns the position of the encoder in raw encoder values
   public double getRawUnits() {
-		return talon.getSelectedSensorPosition(0);
+    return sparkEncoder.getPosition();
   }
   
   // Returns the position of the encoder in inches
   public double getHeight() {
-		return talon.getSelectedSensorPosition(0) / UNITS_PER_INCH;
+    return sparkEncoder.getPosition()/ UNITS_PER_INCH;
   }
   
   // Returns the velocity of the talon.
   public double getSpeed() {
-		return talon.getSelectedSensorVelocity(0);
+    return sparkEncoder.getVelocity();
   }
   
   public void enableBrakeMode() {
-		talon.setNeutralMode(NeutralMode.Brake);
+    spark.setIdleMode(IdleMode.kBrake);
 	}
 
 	public void disableBrakeMode() {
-		talon.setNeutralMode(NeutralMode.Coast);
+    spark.setIdleMode(IdleMode.kCoast);
   }
   
   public void stop() {
 		set(0);
   }
 
-  public boolean isAtTop() {
-		return isAtTop.get();
-	}
-
 	public boolean isAtBottom() {
-		return isAtBottom.get();
-	}
-
-	public boolean isAtMiddle() {
-		return isAtMiddle.get();
+		return !isAtBottom.get();
 	}
 }

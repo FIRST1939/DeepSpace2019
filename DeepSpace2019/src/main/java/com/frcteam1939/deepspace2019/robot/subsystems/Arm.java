@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 public class Arm extends Subsystem {
 
@@ -42,6 +43,8 @@ public class Arm extends Subsystem {
     armPID.setOutputRange(-MAX_OUTPUT, MAX_OUTPUT);
     armPID.setSetpoint(0);
     armPID.enable();
+    LiveWindow.addActuator("Arm", " Arm PIDSubsystem Controller", armPID);
+    
 
     talon.configNominalOutputForward(+0);
 		talon.configNominalOutputReverse(-0);
@@ -55,8 +58,10 @@ public class Arm extends Subsystem {
     setDefaultCommand(new ArmGamepadControl());
   }
 
+  // Positive is moving up
+  // Negative is moving down
   public void set(double value){
-    talon.set(ControlMode.PercentOutput, value);
+    talon.set(ControlMode.PercentOutput, -value);
   }
 
   public void stop(){

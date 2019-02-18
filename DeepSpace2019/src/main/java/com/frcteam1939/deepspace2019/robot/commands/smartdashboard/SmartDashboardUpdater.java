@@ -27,22 +27,23 @@ public class SmartDashboardUpdater extends Command {
 
     // Adds data into the Smart Dashboard to display on the drivestation computer
 
-    SmartDashboard.putNumber("Left Velocity", Robot.drivetrain.getLeftVelocity());
-		SmartDashboard.putNumber("Left Position", Robot.drivetrain.getLeftPosition());
 		SmartDashboard.putNumber("Left Voltage", Robot.drivetrain.getLeftVoltage());
 		SmartDashboard.putNumber("Left Percent Output", Robot.drivetrain.getLeftPercentOutput());
 
-		SmartDashboard.putNumber("Right Velocity", Robot.drivetrain.getRightVelocity());
-		SmartDashboard.putNumber("Right Position", Robot.drivetrain.getRightPosition());
 		SmartDashboard.putNumber("Right Voltage", Robot.drivetrain.getRightVoltage());
     SmartDashboard.putNumber("Right Percent Output", Robot.drivetrain.getRightPercentOutput());
     
-    SmartDashboard.putNumber("Heading", Robot.drivetrain.getHeading());
+    // SmartDashboard.putNumber("Heading", Robot.drivetrain.getHeading());
+    
     SmartDashboard.putNumber("Potentiometer Reading", Robot.arm.getPotentiometer());
+    SmartDashboard.putData("Arm PID", Robot.arm.armPID);
 
-    SmartDashboard.putBoolean("Elevator is at top", Robot.elevator.isAtTop());
-    SmartDashboard.putBoolean("Elevator is at Bottom", Robot.elevator.isAtBottom());
-    SmartDashboard.putBoolean("Elevator is at Middle", Robot.elevator.isAtMiddle());
+    SmartDashboard.putNumber("Elevator Revolutions", Robot.elevator.getRawUnits());
+    SmartDashboard.putNumber("Elevator Height", Robot.elevator.getHeight());
+    SmartDashboard.putNumber("Elevator Speed", Robot.elevator.getSpeed());
+    SmartDashboard.putBoolean("Elevator Is At Bottom", Robot.elevator.isAtBottom());
+
+    SmartDashboard.putBoolean("Has Cargo", Robot.manipulator.hasCargo());
 
     SmartDashboard.putNumber("Vision Horizontal Error", Robot.drivetrain.limelight.getHorizontalAngleError());
     SmartDashboard.putNumber("Vision Vertical Error", Robot.drivetrain.limelight.getVerticalAngleError());
@@ -58,6 +59,7 @@ public class SmartDashboardUpdater extends Command {
 
     SmartDashboard.putBoolean("Vision Has Found Target", Robot.drivetrain.limelight.isTargetFound());
 
+    SmartDashboard.putNumber("Pressure", Robot.getPressure());
   }
 
   @Override

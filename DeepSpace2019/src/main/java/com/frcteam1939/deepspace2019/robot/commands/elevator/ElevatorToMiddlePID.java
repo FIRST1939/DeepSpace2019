@@ -21,7 +21,7 @@ public class ElevatorToMiddlePID extends Command {
 
   @Override
   protected void execute() {
-    Robot.elevator.setHeight(DistanceConstants.elevatorLevelTwoPosition);
+    Robot.elevator.setHeightPID(DistanceConstants.elevatorLevelTwoPosition);
   }
 
   @Override

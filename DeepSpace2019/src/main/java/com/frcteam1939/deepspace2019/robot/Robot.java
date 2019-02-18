@@ -8,15 +8,19 @@
 package com.frcteam1939.deepspace2019.robot;
 
 import com.frcteam1939.deepspace2019.robot.subsystems.Climber;
+import com.frcteam1939.deepspace2019.robot.commands.arm.SetArmAngle;
+import com.frcteam1939.deepspace2019.robot.commands.elevator.TuneElevatorPID;
 import com.frcteam1939.deepspace2019.robot.subsystems.Arm;
 import com.frcteam1939.deepspace2019.robot.subsystems.Drivetrain;
 import com.frcteam1939.deepspace2019.robot.subsystems.Manipulator;
 import com.frcteam1939.deepspace2019.robot.subsystems.Elevator;
 import com.frcteam1939.deepspace2019.robot.subsystems.SmartDashboardSubsystem;
 
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -43,6 +47,7 @@ public class Robot extends TimedRobot {
 	};
 
   public static OI oi = new OI();
+  private static AnalogInput pressureSensor = new AnalogInput(RobotMap.pressureSensor);
 
   Command autonomousCommand;
   SendableChooser<Command> chooser = new SendableChooser<>();
@@ -56,6 +61,8 @@ public class Robot extends TimedRobot {
     // chooser.setDefaultOption("Default Auto", new ExampleCommand());
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Autonomous Chooser", chooser);
+    SmartDashboard.putData("Elevator PID", new TuneElevatorPID());
+    SmartDashboard.putData("Set Arm Angle", new SetArmAngle(30));
 
     System.out.println("           Finished Intializing");
 		System.out.println("==========================================/n");
@@ -69,7 +76,7 @@ public class Robot extends TimedRobot {
   public void disabledInit() {
     Robot.drivetrain.disableBrakeMode();
     Robot.elevator.disableBrakeMode();
-    Robot.arm.disableBrakeMode();
+    Robot.arm.enableBrakeMode();
   }
 
   @Override
@@ -104,6 +111,7 @@ public class Robot extends TimedRobot {
     Robot.drivetrain.enableBrakeMode();
     Robot.elevator.enableBrakeMode();
     Robot.arm.enableBrakeMode();
+    
   }
 
   @Override
@@ -114,4 +122,8 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {
   }
+
+  public static double getPressure() {
+		return 250.0 * (pressureSensor.getVoltage() / 5.0) - 25.0;
+	}
 }
