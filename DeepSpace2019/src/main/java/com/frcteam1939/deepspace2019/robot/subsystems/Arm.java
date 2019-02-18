@@ -43,7 +43,7 @@ public class Arm extends Subsystem {
     armPID.setOutputRange(-MAX_OUTPUT, MAX_OUTPUT);
     armPID.setSetpoint(0);
     armPID.enable();
-    LiveWindow.addActuator("Arm", "PIDSubsystem Controller", armPID);
+    LiveWindow.addActuator("Arm", " Arm PIDSubsystem Controller", armPID);
     
 
     talon.configNominalOutputForward(+0);
