@@ -29,11 +29,11 @@ public class Elevator extends Subsystem {
   public double MAX_VEL = 2000;
   public double MIN_VEL = 0;
   public double MAX_OUTPUT = 1;
-  public double MIN_OUTPUT = -2;
+  public double MIN_OUTPUT = -1;
   public double MAX_RPM = 5700;//HOLDER
   public double MAX_ACCL = 1500;//HOLDER
-  public double ALLOWED_ERR = 1000;
-  public double UNITS_PER_INCH = 22000;
+  public double ALLOWED_ERR = .01;
+  public double UNITS_PER_INCH = 0.1;
 
 
   // The tuned PID values for the elevator for finite control
@@ -53,9 +53,7 @@ public class Elevator extends Subsystem {
 
    // Initializes elevator talon & Sensors
   private CANSparkMax spark = new CANSparkMax(RobotMap.elevatorSpark, MotorType.kBrushless);
-  private DigitalInput isAtBottom = new DigitalInput(RobotMap.elevatorAtBottom);
-  private DigitalInput isAtTop = new DigitalInput(RobotMap.elevatorAtTop);
-  private DigitalInput isAtMiddle= new DigitalInput(RobotMap.elevatorAtMiddle);
+  private DigitalInput isAtBottom = new DigitalInput(RobotMap.elevatorAtBottomHallEffect);
   public CANPIDController sparkPID = spark.getPIDController();
   public CANEncoder sparkEncoder = spark.getEncoder();
   
@@ -90,7 +88,7 @@ public class Elevator extends Subsystem {
   public void setPID(double P, double I, double D) {
     if(usePID()){
      
-      sparkPID.setSmartMotionMinOutputVelocity(MAX_VEL, smartMotionSlot);
+      sparkPID.setSmartMotionMaxVelocity(MAX_VEL, smartMotionSlot);
       sparkPID.setSmartMotionMinOutputVelocity(MIN_VEL, smartMotionSlot);
       sparkPID.setSmartMotionMaxAccel(MAX_ACCL, smartMotionSlot);
       sparkPID.setSmartMotionAllowedClosedLoopError(ALLOWED_ERR, smartMotionSlot);
@@ -152,15 +150,7 @@ public class Elevator extends Subsystem {
 		set(0);
   }
 
-  public boolean isAtTop() {
-		return isAtTop.get();
-	}
-
 	public boolean isAtBottom() {
 		return isAtBottom.get();
-	}
-
-	public boolean isAtMiddle() {
-		return isAtMiddle.get();
 	}
 }

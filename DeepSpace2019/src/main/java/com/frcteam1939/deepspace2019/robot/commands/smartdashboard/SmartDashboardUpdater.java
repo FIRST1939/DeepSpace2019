@@ -37,12 +37,10 @@ public class SmartDashboardUpdater extends Command {
 		SmartDashboard.putNumber("Right Voltage", Robot.drivetrain.getRightVoltage());
     SmartDashboard.putNumber("Right Percent Output", Robot.drivetrain.getRightPercentOutput());
     
-    SmartDashboard.putNumber("Heading", Robot.drivetrain.getHeading());
+    // SmartDashboard.putNumber("Heading", Robot.drivetrain.getHeading());
     SmartDashboard.putNumber("Potentiometer Reading", Robot.arm.getPotentiometer());
 
-    SmartDashboard.putBoolean("Elevator is at top", Robot.elevator.isAtTop());
     SmartDashboard.putBoolean("Elevator is at Bottom", Robot.elevator.isAtBottom());
-    SmartDashboard.putBoolean("Elevator is at Middle", Robot.elevator.isAtMiddle());
 
     SmartDashboard.putNumber("Vision Horizontal Error", Robot.drivetrain.limelight.getHorizontalAngleError());
     SmartDashboard.putNumber("Vision Vertical Error", Robot.drivetrain.limelight.getVerticalAngleError());
@@ -57,7 +55,8 @@ public class SmartDashboardUpdater extends Command {
     SmartDashboard.putNumber("Vision LED Mode", Robot.drivetrain.limelight.getLEDMode());
 
     SmartDashboard.putBoolean("Vision Has Found Target", Robot.drivetrain.limelight.isTargetFound());
-   
+
+    SmartDashboard.putNumber("Pressure", Robot.getPressure());
   }
 
   @Override

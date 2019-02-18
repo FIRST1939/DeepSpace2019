@@ -12,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.frcteam1939.deepspace2019.robot.RobotMap;
 import com.frcteam1939.deepspace2019.robot.commands.drivetrain.DriveByJoystick;
 import com.frcteam1939.deepspace2019.util.Limelight;
@@ -49,14 +50,14 @@ public class Drivetrain extends Subsystem {
 	private static final double turnD = 0.0;
 
   private TalonSRX frontLeft = new TalonSRX(RobotMap.leftFrontTalon);
-  private TalonSRX backLeft = new TalonSRX(RobotMap.leftBackTalon);
+  private VictorSPX backLeft = new VictorSPX(RobotMap.leftBackVictor);
   private TalonSRX frontRight = new TalonSRX(RobotMap.rightFrontTalon);
-  private TalonSRX backRight = new TalonSRX(RobotMap.rightBackTalon);
+  private VictorSPX backRight = new VictorSPX(RobotMap.rightBackVictor);
   private CANSparkMax sidewinder = new CANSparkMax(RobotMap.sidewinderSpark, MotorType.kBrushless);
 
   private DoubleSolenoid sidewinderSolenoid = new DoubleSolenoid(RobotMap.sidewinderUpSolenoid, RobotMap.sidewinderDownSolenoid);
 
-  private AHRS navx;
+  // private AHRS navx;
   public Limelight limelight = new Limelight();
 
   public Drivetrain(){
@@ -65,16 +66,19 @@ public class Drivetrain extends Subsystem {
     backLeft.follow(frontLeft);
     backRight.follow(frontRight);
 
-    navx = new AHRS(Port.kUSB);
-		navx.setPIDSourceType(PIDSourceType.kDisplacement);
-		turnPID = new PIDController(turnP, turnI, turnD, turnF, navx, output -> {});
-		turnPID.setInputRange(-180, 180);
-		turnPID.setContinuous(true);
-		turnPID.setOutputRange(-MAX_TURN_OUTPUT, MAX_TURN_OUTPUT);
-		turnPID.setSetpoint(0);
-    turnPID.enable();
-    LiveWindow.addActuator("Turn PID", "PIDSubsystem Controller", turnPID);
-    
+    frontLeft.setInverted(true);
+    backLeft.setInverted(true);
+
+    // navx = new AHRS(Port.kUSB);
+		// navx.setPIDSourceType(PIDSourceType.kDisplacement);
+		// turnPID = new PIDController(turnP, turnI, turnD, turnF, navx, output -> {});
+		// turnPID.setInputRange(-180, 180);
+		// turnPID.setContinuous(true);
+		// turnPID.setOutputRange(-MAX_TURN_OUTPUT, MAX_TURN_OUTPUT);
+		// turnPID.setSetpoint(0);
+    // turnPID.enable();
+    // LiveWindow.addActuator("Turn PID", "PIDSubsystem Controller", turnPID);
+
   }
   @Override
   public void initDefaultCommand() {
@@ -119,21 +123,21 @@ public class Drivetrain extends Subsystem {
     return frontRight.getMotorOutputVoltage();
   }
 
-  public double getHeading() {
-		if (navx.isConnected()) {
-			return navx.pidGet();
-		} else {
-			return 0;
-		}
-	}
+  // public double getHeading() {
+	// 	if (navx.isConnected()) {
+	// 		return navx.pidGet();
+	// 	} else {
+	// 		return 0;
+	// 	}
+	// }
 
-	public double getTurnSpeed() {
-		if (navx.isConnected()) {
-			return navx.getRate();
-		} else {
-			return 0;
-		}
-	}
+	// public double getTurnSpeed() {
+		// if (navx.isConnected()) {
+		//	return navx.getRate();
+	// 	} else {
+	// 		return 0;
+	// 	}
+	// }
 
   // Set Methods
 
