@@ -5,35 +5,49 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package com.frcteam1939.deepspace2019.robot.commands;
+package com.frcteam1939.deepspace2019.robot.commands.climber;
 
 import com.frcteam1939.deepspace2019.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ClimberJoystickControl extends Command {
-  public ClimberJoystickControl() {
+public class SetSkiPosition extends Command {
+
+  private double position;
+
+  public SetSkiPosition(double position) {
     requires(Robot.climber);
+    this.position = position;
   }
 
+  // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    
   }
 
+  // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    Robot.climber.setSkiTalon(position);
   }
 
+  // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
     return false;
   }
 
+  // Called once after isFinished returns true
   @Override
   protected void end() {
+    Robot.climber.setSkiTalon(0);
   }
 
+  // Called when another command which requires one or more of the same
+  // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    Robot.climber.setSkiTalon(0);
   }
 }

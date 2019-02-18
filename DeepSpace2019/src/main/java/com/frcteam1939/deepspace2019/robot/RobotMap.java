@@ -1,3 +1,4 @@
+
 /*----------------------------------------------------------------------------*/
 /* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
@@ -34,5 +35,4 @@ public class RobotMap {
   // Digital Input
   public static final int hasCargoBanner = 1;
   public static final int elevatorAtBottomHallEffect = 2;
-
 }
