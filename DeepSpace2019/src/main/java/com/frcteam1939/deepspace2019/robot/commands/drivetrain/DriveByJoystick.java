@@ -31,6 +31,12 @@ public class DriveByJoystick extends Command {
 
 		boolean turbo = Robot.oi.left.getRawButton(1) || Robot.oi.right.getRawButton(1);
 
+		boolean wantVision = Robot.oi.left.getRawButton(2) || Robot.oi.right.getRawButton(2);
+		boolean useVision = Robot.oi.left.getRawButton(3) || Robot.oi.right.getRawButton(3);
+
+		double visionHorizontalP = 0.03;
+		double horizontalError;
+
 		if (Math.abs(move) < DEAD_BAND) {
 			move = 0;
 		} else {
@@ -40,6 +46,7 @@ public class DriveByJoystick extends Command {
 				move = map(move, 0, 0.5);
 			}
 		}
+
 		if (Math.abs(rotate) < ROTATE_DEAD_BAND) {
 			rotate = 0;
 		} else {
@@ -48,6 +55,20 @@ public class DriveByJoystick extends Command {
 			} else {
 				rotate = map(rotate, 0, 0.4);
 			}
+		}
+
+		if (wantVision) {
+			Robot.drivetrain.limelight.setCamMode(0);
+			Robot.drivetrain.limelight.setPipeline(0);
+		} 
+		else if (useVision) {
+			Robot.drivetrain.limelight.setCamMode(0);
+			Robot.drivetrain.limelight.setPipeline(0);
+			horizontalError = Robot.drivetrain.limelight.getHorizontalAngleError();
+			rotate = horizontalError * visionHorizontalP;
+		} 
+		else {
+			Robot.drivetrain.limelight.setCamMode(1);
 		}
 
 		Robot.drivetrain.drive(move, rotate);
