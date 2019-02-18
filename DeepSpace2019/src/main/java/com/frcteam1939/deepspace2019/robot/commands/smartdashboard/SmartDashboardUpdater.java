@@ -26,7 +26,7 @@ public class SmartDashboardUpdater extends Command {
   protected void execute() {
 
     // Adds data into the Smart Dashboard to display on the drivestation computer
-    
+
 		SmartDashboard.putNumber("Left Voltage", Robot.drivetrain.getLeftVoltage());
 		SmartDashboard.putNumber("Left Percent Output", Robot.drivetrain.getLeftPercentOutput());
 
@@ -34,9 +34,16 @@ public class SmartDashboardUpdater extends Command {
     SmartDashboard.putNumber("Right Percent Output", Robot.drivetrain.getRightPercentOutput());
     
     // SmartDashboard.putNumber("Heading", Robot.drivetrain.getHeading());
+    
     SmartDashboard.putNumber("Potentiometer Reading", Robot.arm.getPotentiometer());
+    SmartDashboard.putData("Arm PID", Robot.arm.armPID);
 
-    SmartDashboard.putBoolean("Elevator is at Bottom", Robot.elevator.isAtBottom());
+    SmartDashboard.putNumber("Elevator Revolutions", Robot.elevator.getRawUnits());
+    SmartDashboard.putNumber("Elevator Height", Robot.elevator.getHeight());
+    SmartDashboard.putNumber("Elevator Speed", Robot.elevator.getSpeed());
+    SmartDashboard.putBoolean("Elevator Is At Bottom", Robot.elevator.isAtBottom());
+
+    SmartDashboard.putBoolean("Has Cargo", Robot.manipulator.hasCargo());
 
     SmartDashboard.putNumber("Vision Horizontal Error", Robot.drivetrain.limelight.getHorizontalAngleError());
     SmartDashboard.putNumber("Vision Vertical Error", Robot.drivetrain.limelight.getVerticalAngleError());

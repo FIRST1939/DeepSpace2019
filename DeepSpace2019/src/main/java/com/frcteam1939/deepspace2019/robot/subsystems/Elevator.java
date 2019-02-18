@@ -152,6 +152,6 @@ public class Elevator extends Subsystem {
   }
 
 	public boolean isAtBottom() {
-		return isAtBottom.get();
+		return !isAtBottom.get();
 	}
 }
