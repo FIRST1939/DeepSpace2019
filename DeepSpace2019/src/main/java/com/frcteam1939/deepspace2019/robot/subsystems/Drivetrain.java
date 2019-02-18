@@ -17,15 +17,11 @@ import com.frcteam1939.deepspace2019.robot.RobotMap;
 import com.frcteam1939.deepspace2019.robot.commands.drivetrain.DriveByJoystick;
 import com.frcteam1939.deepspace2019.util.Limelight;
 import com.kauailabs.navx.frc.AHRS;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Drivetrain extends Subsystem {
@@ -53,9 +49,6 @@ public class Drivetrain extends Subsystem {
   private VictorSPX backLeft = new VictorSPX(RobotMap.leftBackVictor);
   private TalonSRX frontRight = new TalonSRX(RobotMap.rightFrontTalon);
   private VictorSPX backRight = new VictorSPX(RobotMap.rightBackVictor);
-  private CANSparkMax sidewinder = new CANSparkMax(RobotMap.sidewinderSpark, MotorType.kBrushless);
-
-  private DoubleSolenoid sidewinderSolenoid = new DoubleSolenoid(RobotMap.sidewinderUpSolenoid, RobotMap.sidewinderDownSolenoid);
 
   // private AHRS navx;
   public Limelight limelight = new Limelight();
@@ -77,7 +70,6 @@ public class Drivetrain extends Subsystem {
 		// turnPID.setOutputRange(-MAX_TURN_OUTPUT, MAX_TURN_OUTPUT);
 		// turnPID.setSetpoint(0);
     // turnPID.enable();
-    // LiveWindow.addActuator("Turn PID", "PIDSubsystem Controller", turnPID);
 
   }
   @Override
@@ -86,26 +78,6 @@ public class Drivetrain extends Subsystem {
   }
 
   // Get Methods 
-
-  public boolean isMoving() {
-		return Math.abs(this.getLeftVelocity()) > 1 || Math.abs(this.getRightVelocity()) > 1;
-	}
-
-  public double getLeftPosition(){
-    return frontLeft.getSelectedSensorPosition();
-  }
-
-  public double getRightPosition(){
-    return frontRight.getSelectedSensorPosition();
-  }
-
-  public double getLeftVelocity(){
-    return frontLeft.getSelectedSensorVelocity();
-  }
-
-  public double getRightVelocity(){
-    return frontRight.getSelectedSensorVelocity();
-  }
 
   public double getLeftPercentOutput(){
     return frontLeft.getMotorOutputPercent();
@@ -150,21 +122,7 @@ public class Drivetrain extends Subsystem {
     setPercentOutput(0, 0);
   }
 
-  public void strafe(double value){
-    sidewinder.set(value);
-  }
-
-  public void sidewinderUp(){
-    sidewinderSolenoid.set(DoubleSolenoid.Value.kForward);
-  }
-
-  public void sidewinderDown(){
-    sidewinderSolenoid.set(DoubleSolenoid.Value.kReverse);
-  }
-
-  public void drive(double moveValue, double rotateValue, double strafeValue) {
-		// Strafe with Sidewinder
-		strafe(strafeValue);
+  public void drive(double moveValue, double rotateValue) {
 
 		// Calculate left and right speeds from move and rotate values
 		double leftMotorSpeed;
@@ -192,7 +150,6 @@ public class Drivetrain extends Subsystem {
     
 		SmartDashboard.putNumber("Move Output", moveValue);
 		SmartDashboard.putNumber("Turn Output", rotateValue);
-		SmartDashboard.putNumber("Strafe Output", strafeValue);
   }
 
   public void enableBrakeMode(){

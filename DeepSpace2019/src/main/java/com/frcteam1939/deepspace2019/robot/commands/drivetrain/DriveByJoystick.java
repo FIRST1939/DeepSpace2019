@@ -28,7 +28,6 @@ public class DriveByJoystick extends Command {
 
 		double move = Robot.oi.left.getY();
 		double rotate = Robot.oi.right.getX();
-		double strafe = Robot.oi.left.getX();
 
 		boolean turbo = Robot.oi.left.getRawButton(1) || Robot.oi.right.getRawButton(1);
 
@@ -50,19 +49,8 @@ public class DriveByJoystick extends Command {
 				rotate = map(rotate, 0, 0.4);
 			}
 		}
-		if (Math.abs(strafe) < 0.5) {
-			Robot.drivetrain.sidewinderUp();
-			strafe = 0;
-		} else {
-			Robot.drivetrain.sidewinderDown();
-			if (turbo) {
-				strafe = map(strafe, 0.5, 1.0, 0.3, 1.0);
-			} else {
-				strafe = map(strafe, 0.5, 1.0, 0.3, 0.7);
-			}
-		}
 
-		Robot.drivetrain.drive(move, rotate, strafe);
+		Robot.drivetrain.drive(move, rotate);
 	}
 
 	@Override

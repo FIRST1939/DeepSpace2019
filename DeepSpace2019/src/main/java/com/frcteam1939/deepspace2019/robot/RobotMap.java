@@ -14,7 +14,6 @@ public class RobotMap {
 	public static final int leftBackVictor = 34;
 	public static final int rightFrontTalon = 29;
   public static final int rightBackVictor = 35;
-  public static final int sidewinderSpark = 5;
   public static final int elevatorSpark = 7;
   public static final int armTalon = 14;
   public static final int rollerTalon = 26;
@@ -24,8 +23,6 @@ public class RobotMap {
   
   // Solenoids
 	public static final int PCM = 0;
-  public static final int sidewinderUpSolenoid = 0;
-  public static final int sidewinderDownSolenoid = 1;
   public static final int manipulatorAngleSolenoid = 7;
   public static final int manipulatorShootSolenoid = 5;
   public static final int manipulatorVelcroSolenoid = 6;

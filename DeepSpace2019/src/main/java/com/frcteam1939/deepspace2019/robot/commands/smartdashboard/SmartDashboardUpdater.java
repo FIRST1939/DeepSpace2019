@@ -26,14 +26,10 @@ public class SmartDashboardUpdater extends Command {
   protected void execute() {
 
     // Adds data into the Smart Dashboard to display on the drivestation computer
-
-    SmartDashboard.putNumber("Left Velocity", Robot.drivetrain.getLeftVelocity());
-		SmartDashboard.putNumber("Left Position", Robot.drivetrain.getLeftPosition());
+    
 		SmartDashboard.putNumber("Left Voltage", Robot.drivetrain.getLeftVoltage());
 		SmartDashboard.putNumber("Left Percent Output", Robot.drivetrain.getLeftPercentOutput());
 
-		SmartDashboard.putNumber("Right Velocity", Robot.drivetrain.getRightVelocity());
-		SmartDashboard.putNumber("Right Position", Robot.drivetrain.getRightPosition());
 		SmartDashboard.putNumber("Right Voltage", Robot.drivetrain.getRightVoltage());
     SmartDashboard.putNumber("Right Percent Output", Robot.drivetrain.getRightPercentOutput());
     
