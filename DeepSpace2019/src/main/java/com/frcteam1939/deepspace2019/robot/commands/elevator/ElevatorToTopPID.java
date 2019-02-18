@@ -21,7 +21,7 @@ public class ElevatorToTopPID extends Command {
 
   @Override
   protected void execute() {
-    Robot.elevator.setHeight(DistanceConstants.elevatorLevelThreePosition);
+    Robot.elevator.setHeightPID(DistanceConstants.elevatorLevelThreePosition);
   }
 
   @Override

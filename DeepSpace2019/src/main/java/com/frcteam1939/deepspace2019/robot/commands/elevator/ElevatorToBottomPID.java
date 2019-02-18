@@ -22,7 +22,7 @@ public class ElevatorToBottomPID extends Command {
 
   @Override
   protected void execute() {
-    Robot.elevator.setHeight(DistanceConstants.elevatorDefaultPosition);
+    Robot.elevator.setHeightPID(DistanceConstants.elevatorDefaultPosition);
   }
 
   @Override
