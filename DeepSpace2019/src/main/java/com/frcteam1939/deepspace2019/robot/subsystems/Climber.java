@@ -106,5 +106,4 @@ public class Climber extends Subsystem {
     public void setClimberWheelsTalonDisableBrakeMode(){
       climberWheelsTalon.setNeutralMode(NeutralMode.Coast);
     }
-
 }

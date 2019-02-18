@@ -5,48 +5,40 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package com.frcteam1939.deepspace2019.robot.commands.elevator;
+package com.frcteam1939.deepspace2019.robot.commands.manipulator;
+
 import com.frcteam1939.deepspace2019.robot.Robot;
+import com.frcteam1939.deepspace2019.robot.subsystems.Manipulator;
+
 import edu.wpi.first.wpilibj.command.Command;
 
+public class IntakeCargo extends Command {
 
-public class ElevatorGamepadControl extends Command {
-  public ElevatorGamepadControl() {
-      requires(Robot.elevator);
+  public IntakeCargo() {
+    requires(Robot.manipulator);
   }
 
   @Override
-  protected void initialize() {}
+  protected void initialize() {
+  }
 
   @Override
   protected void execute() {
-   
-      double move = -Robot.oi.gamepad.getRightY();
-      Robot.elevator.set(move);
-
-      if(Robot.elevator.usePID()){
-        // Robot.oi.gamepad.a.whenPressed(new ElevatorToBottomPID());
-        // Robot.oi.gamepad.b.whenPressed(new ElevatorToMiddlePID());
-        // Robot.oi.gamepad.y.whenPressed(new ElevatorToTopPID());
-     }
-     else{
-        // Robot.oi.gamepad.b.whenPressed(new ElevatorToMiddle());
-        // Robot.oi.gamepad.y.whenPressed(new ElevatorToTop());
-     }
+    Robot.manipulator.setRoller(Manipulator.IN_SPEED);
   }
 
   @Override
   protected boolean isFinished() {
-        return false;
+    return Robot.manipulator.hasCargo();
   }
 
   @Override
   protected void end() {
-     Robot.elevator.stop();
+    Robot.manipulator.setRoller(0);
   }
 
   @Override
   protected void interrupted() {
-   Robot.elevator.stop();
+    Robot.manipulator.setRoller(0);
   }
 }

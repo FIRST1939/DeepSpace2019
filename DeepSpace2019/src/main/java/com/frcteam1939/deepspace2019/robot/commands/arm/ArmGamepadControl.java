@@ -22,7 +22,7 @@ public class ArmGamepadControl extends Command {
 
   @Override
   protected void execute() {
-    double value = Robot.oi.gamepad.getLeftY();
+    double value = -Robot.oi.gamepad.getLeftY();
     Robot.arm.set(value);
   }
 

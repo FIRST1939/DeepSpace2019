@@ -58,8 +58,10 @@ public class Arm extends Subsystem {
     setDefaultCommand(new ArmGamepadControl());
   }
 
+  // Positive is moving up
+  // Negative is moving down
   public void set(double value){
-    talon.set(ControlMode.PercentOutput, value);
+    talon.set(ControlMode.PercentOutput, -value);
   }
 
   public void stop(){

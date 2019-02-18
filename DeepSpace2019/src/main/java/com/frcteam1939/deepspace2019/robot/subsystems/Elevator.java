@@ -80,9 +80,10 @@ public class Elevator extends Subsystem {
     setDefaultCommand(new ElevatorGamepadControl());
   }
 
-  // Sets the talon to a specific percent output 
+  // Positive is moving up
+  // Negative is moving down
   public void set(double value) { 
-		spark.set(value);
+		spark.set(-value);
   }
   
   public void setPID(double P, double I, double D) {

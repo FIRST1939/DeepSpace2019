@@ -15,14 +15,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class TuneElevatorPID extends Command {
   public TuneElevatorPID() {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
+    requires(Robot.elevator);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    requires(Robot.elevator);
   
   }
 

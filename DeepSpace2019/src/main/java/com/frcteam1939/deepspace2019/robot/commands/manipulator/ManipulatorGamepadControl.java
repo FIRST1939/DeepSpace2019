@@ -8,10 +8,17 @@
 package com.frcteam1939.deepspace2019.robot.commands.manipulator;
 
 import com.frcteam1939.deepspace2019.robot.Robot;
+import com.frcteam1939.deepspace2019.robot.subsystems.Manipulator;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ManipulatorGamepadControl extends Command {
+
+  private boolean manipulatorIsDown = false;
+	private boolean manipulatorIsUp = true;
+  private boolean wasPressed = false;
+  
   public ManipulatorGamepadControl() {
     requires(Robot.manipulator);
   }
@@ -22,6 +29,38 @@ public class ManipulatorGamepadControl extends Command {
 
   @Override
   protected void execute() {
+
+    Robot.oi.gamepad.rightTrigger.whenPressed(new IntakeCargo());
+    Robot.oi.gamepad.leftTrigger.whenPressed(new IntakeHatchPanel());
+    Robot.oi.gamepad.leftButton.whenPressed(new OutputHatchPanel());
+
+    if (Robot.oi.gamepad.rightButton.get()){
+      Robot.manipulator.setRoller(Manipulator.OUT_SPEED);
+    }
+
+    if (Robot.oi.gamepad.x.get() && !wasPressed) {
+			wasPressed = true;
+			if (manipulatorIsUp) {
+				Robot.manipulator.manipulatorLower();
+				manipulatorIsDown = true;
+				manipulatorIsUp = false;
+			}
+			else if (manipulatorIsDown) {
+				Robot.manipulator.manipulatorRaise();
+				manipulatorIsUp = true;
+				manipulatorIsDown = false;
+			}
+		}
+
+		if (!Robot.oi.gamepad.x.get()) {
+			wasPressed = false;
+		}
+		else {
+			wasPressed = true;
+		}
+
+		SmartDashboard.putBoolean("Manipulator is Raised", manipulatorIsUp);
+		SmartDashboard.putBoolean("Manipulator is Lowered", manipulatorIsDown);
   }
 
   @Override
