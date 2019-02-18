@@ -11,43 +11,37 @@ import com.frcteam1939.deepspace2019.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class SetSkiPosition extends Command {
+public class SetClimberWheelsMotorSpeed extends Command {
 
-  private double position;
+  private double speed;
 
-  public SetSkiPosition(double position) {
+  public SetClimberWheelsMotorSpeed(double value) {
     requires(Robot.climber);
-    this.position = position;
+    speed = value;
   }
 
-  // Called just before this Command runs the first time
   @Override
   protected void initialize() {
     
   }
 
-  // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.climber.setSkiTalon(position);
+    Robot.climber.setClimberWheelsTalon(speed);
   }
 
-  // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return true;
   }
 
-  // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.climber.setSkiTalon(0);
+    Robot.climber.setClimberWheelsTalon(0);
   }
 
-  // Called when another command which requires one or more of the same
-  // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    Robot.climber.setSkiTalon(0);
+    Robot.climber.setClimberWheelsTalon(0);
   }
 }

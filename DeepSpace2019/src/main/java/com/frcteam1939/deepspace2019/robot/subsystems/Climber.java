@@ -26,6 +26,7 @@ public class Climber extends Subsystem {
      * The constructor. This initializes various default settings for the motor controllers.
      */
     public Climber() {
+      climberWheelsTalon.setInverted(true);
     }
 
     /**
@@ -69,7 +70,7 @@ public class Climber extends Subsystem {
     */
 
     public void setRackGearSparkEnableBrakeMode(){
-      rackGearSpark.setNeutralMode(NeutralMode.Brake);
+      rackGearSpark.setIdleMode(IdleMode.kBrake);
     }
     /**
      * Sets the climberWheelsTalon's neutral state as break.
@@ -89,7 +90,7 @@ public class Climber extends Subsystem {
      * Sets the rackGearSpark's neutral state as coast.
     */
     public void setRackGearSparkDisableBrakeMode(){
-      rackGearSpark.setNeutralMode(NeutralMode.Coast);
+      rackGearSpark.setIdleMode(IdleMode.kCoast);
     }
   
     /**
