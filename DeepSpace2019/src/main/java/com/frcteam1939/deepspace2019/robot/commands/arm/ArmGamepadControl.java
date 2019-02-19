@@ -22,7 +22,10 @@ public class ArmGamepadControl extends Command {
 
   @Override
   protected void execute() {
-    double value = -Robot.oi.gamepad.getLeftY();
+
+    Robot.oi.gamepad.b.whenPressed(new ArmToSetHeight());
+
+    double value = -Robot.oi.gamepad.getLeftY() / 2;
     Robot.arm.set(value);
   }
 

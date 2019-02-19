@@ -30,9 +30,9 @@ public class RobotMap {
 
   // Analog Input
   public static final int pressureSensor = 0;
-  public static final int potentiometer = 1;
 
   // Digital Input
+  public static final int armSetHeightHallEffect = 0;
   public static final int hasCargoBanner = 1;
   public static final int elevatorAtBottomHallEffect = 2;
 }

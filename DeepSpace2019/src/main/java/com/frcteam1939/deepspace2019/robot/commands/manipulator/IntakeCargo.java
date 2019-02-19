@@ -29,7 +29,7 @@ public class IntakeCargo extends Command {
 
   @Override
   protected boolean isFinished() {
-    return Robot.manipulator.hasCargo();
+    return Robot.manipulator.hasCargo() || Robot.oi.gamepad.start.get();
   }
 
   @Override

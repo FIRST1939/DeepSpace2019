@@ -35,8 +35,7 @@ public class SmartDashboardUpdater extends Command {
     
     // SmartDashboard.putNumber("Heading", Robot.drivetrain.getHeading());
     
-    SmartDashboard.putNumber("Potentiometer Reading", Robot.arm.getPotentiometer());
-    SmartDashboard.putData("Arm PID", Robot.arm.armPID);
+    SmartDashboard.putBoolean("Arm Is At Set Height", Robot.arm.isAtSetHeight());
 
     SmartDashboard.putNumber("Elevator Revolutions", Robot.elevator.getRawUnits());
     SmartDashboard.putNumber("Elevator Height", Robot.elevator.getHeight());

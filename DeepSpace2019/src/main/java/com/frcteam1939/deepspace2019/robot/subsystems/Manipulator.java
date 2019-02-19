@@ -18,8 +18,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Manipulator extends Subsystem {
   
-  public static final double IN_SPEED = 1.0;
-  public static final double OUT_SPEED = 0.5;
+  public static final double IN_SPEED = -1.0;
+  public static final double OUT_SPEED = -0.7;
 
   private TalonSRX talon = new TalonSRX(RobotMap.rollerTalon);
 
@@ -63,6 +63,6 @@ public class Manipulator extends Subsystem {
   }
 
   public boolean hasCargo(){
-    return banner.get();
+    return !banner.get();
   }
 }

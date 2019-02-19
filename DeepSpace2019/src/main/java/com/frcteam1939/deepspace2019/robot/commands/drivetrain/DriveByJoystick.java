@@ -29,43 +29,59 @@ public class DriveByJoystick extends Command {
 		double move = Robot.oi.left.getY();
 		double rotate = Robot.oi.right.getX();
 
-		boolean turbo = Robot.oi.left.getRawButton(1) || Robot.oi.right.getRawButton(1);
+		boolean slowDown = Robot.oi.left.getRawButton(1) || Robot.oi.right.getRawButton(1);
 
-		boolean wantVision = Robot.oi.left.getRawButton(2) || Robot.oi.right.getRawButton(2);
-		boolean useVision = Robot.oi.left.getRawButton(3) || Robot.oi.right.getRawButton(3);
+		boolean wantVision = Robot.oi.left.getRawButton(3) || Robot.oi.right.getRawButton(3);
+		boolean wantCargo = Robot.oi.left.getRawButton(5) || Robot.oi.right.getRawButton(5);
+		// Hatch Panel is 4
 
-		double visionHorizontalP = 0.03;
-		double horizontalError;
+		double largeAngleVisionHorizontalP = 0.03;
+		double smallAngleVisionHorizontalP = 0.06;
+
+		double horizontalVisionError;
+		double horizontalCargoError;
 
 		if (Math.abs(move) < DEAD_BAND) {
 			move = 0;
 		} else {
-			if (turbo) {
-				move = map(move, 0, 1.0);
-			} else {
+			if (slowDown) {
 				move = map(move, 0, 0.5);
+			} else {
+				move = map(move, 0, 1.0);
 			}
 		}
 
 		if (Math.abs(rotate) < ROTATE_DEAD_BAND) {
 			rotate = 0;
 		} else {
-			if (turbo) {
-				rotate = map(rotate, 0, 0.8);
-			} else {
+			if (slowDown) {
 				rotate = map(rotate, 0, 0.4);
+			} else {
+				rotate = map(rotate, 0, 0.8);
 			}
 		}
 
 		if (wantVision) {
 			Robot.drivetrain.limelight.setCamMode(0);
 			Robot.drivetrain.limelight.setPipeline(0);
+			horizontalVisionError = Robot.drivetrain.limelight.getHorizontalAngleError();
+			if (horizontalVisionError < 5.0) {
+				rotate = horizontalVisionError * smallAngleVisionHorizontalP;
+			}
+			else {
+				rotate = horizontalVisionError * largeAngleVisionHorizontalP;
+			}
 		} 
-		else if (useVision) {
+		else if (wantCargo) {
 			Robot.drivetrain.limelight.setCamMode(0);
-			Robot.drivetrain.limelight.setPipeline(0);
-			horizontalError = Robot.drivetrain.limelight.getHorizontalAngleError();
-			rotate = horizontalError * visionHorizontalP;
+			Robot.drivetrain.limelight.setPipeline(1);
+			horizontalCargoError = Robot.drivetrain.limelight.getHorizontalAngleError();
+			if (horizontalCargoError < 5.0) {
+				rotate = horizontalCargoError * smallAngleVisionHorizontalP;
+			}
+			else {
+				rotate = horizontalCargoError * largeAngleVisionHorizontalP;
+			}
 		} 
 		else {
 			Robot.drivetrain.limelight.setCamMode(1);

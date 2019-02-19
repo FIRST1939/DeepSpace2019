@@ -11,41 +11,36 @@ import com.frcteam1939.deepspace2019.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class SetArmAngle extends Command {
+public class ArmToSetHeight extends Command {
 
-  private double angle;
+  double time;
 
-  public SetArmAngle(double angle) {
+  public ArmToSetHeight() {
     requires(Robot.arm);
-    this.angle = angle;
   }
 
   @Override
   protected void initialize() {
-    Robot.arm.armPID.reset();
-    Robot.arm.armPID.enable();
-
-    double newAngle = angle - Robot.arm.getPotentiometer();
-    Robot.arm.armPID.setSetpoint(newAngle);
   }
 
   @Override
   protected void execute() {
-    Robot.arm.set(Robot.arm.armPID.get());
+    Robot.arm.set(0.75);
+    time = this.timeSinceInitialized();
   }
 
   @Override
   protected boolean isFinished() {
-    return Math.abs(angle - Robot.arm.getPotentiometer()) < 0.25;
+    return Robot.arm.isAtSetHeight() || time > 2.5;
   }
 
   @Override
   protected void end() {
-    Robot.arm.stop();
+    Robot.arm.set(0);
   }
 
   @Override
   protected void interrupted() {
-    Robot.arm.stop();
+    Robot.arm.set(0);
   }
 }

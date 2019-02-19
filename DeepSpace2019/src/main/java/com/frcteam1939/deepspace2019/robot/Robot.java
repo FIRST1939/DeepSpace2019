@@ -8,7 +8,6 @@
 package com.frcteam1939.deepspace2019.robot;
 
 import com.frcteam1939.deepspace2019.robot.subsystems.Climber;
-import com.frcteam1939.deepspace2019.robot.commands.arm.SetArmAngle;
 import com.frcteam1939.deepspace2019.robot.commands.elevator.TuneElevatorPID;
 import com.frcteam1939.deepspace2019.robot.subsystems.Arm;
 import com.frcteam1939.deepspace2019.robot.subsystems.Drivetrain;
@@ -16,11 +15,12 @@ import com.frcteam1939.deepspace2019.robot.subsystems.Manipulator;
 import com.frcteam1939.deepspace2019.robot.subsystems.Elevator;
 import com.frcteam1939.deepspace2019.robot.subsystems.SmartDashboardSubsystem;
 
+import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -62,8 +62,11 @@ public class Robot extends TimedRobot {
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Autonomous Chooser", chooser);
     SmartDashboard.putData("Elevator PID", new TuneElevatorPID());
-    SmartDashboard.putData("Set Arm Angle", new SetArmAngle(30));
 
+    UsbCamera cam = CameraServer.getInstance().startAutomaticCapture();
+    cam.setResolution(240, 180);
+    cam.setBrightness(10);
+    
     System.out.println("           Finished Intializing");
 		System.out.println("==========================================/n");
   }
