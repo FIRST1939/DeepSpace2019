@@ -5,18 +5,19 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package com.frcteam1939.deepspace2019.robot.commands.elevator;
+package com.frcteam1939.deepspace2019.robot.commands.manipulator;
 
 import com.frcteam1939.deepspace2019.robot.Robot;
+import com.frcteam1939.deepspace2019.robot.subsystems.Manipulator;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ElevatorToMiddle extends Command {
+public class FingerIn extends Command {
 
   double time;
 
-  public ElevatorToMiddle() {
-    requires(Robot.elevator);
+  public FingerIn() {
+    requires(Robot.manipulator);
   }
 
   @Override
@@ -25,22 +26,22 @@ public class ElevatorToMiddle extends Command {
 
   @Override
   protected void execute() {
-    Robot.elevator.set(1.0);
+    Robot.manipulator.setRoller(Manipulator.FINGER_IN_SPEED);
     time = this.timeSinceInitialized();
   }
 
   @Override
   protected boolean isFinished() {
-    return Robot.elevator.isAtMiddle() || time > 3.0;
+    return time > 1.0;
   }
 
   @Override
   protected void end() {
-    Robot.elevator.stop();
+    Robot.manipulator.setRoller(0);
   }
 
   @Override
   protected void interrupted() {
-    Robot.elevator.stop();
+    Robot.manipulator.setRoller(0);
   }
 }

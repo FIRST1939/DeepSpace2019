@@ -65,6 +65,13 @@ public class DriveByJoystick extends Command {
 			Robot.drivetrain.limelight.setCamMode(0);
 			Robot.drivetrain.limelight.setPipeline(0);
 			horizontalVisionError = Robot.drivetrain.limelight.getHorizontalAngleError();
+			
+			if (Math.abs(move) < DEAD_BAND) {
+				move = 0;
+			} else {
+				move = map(move, 0, 0.5);
+			}
+
 			if (horizontalVisionError < 5.0) {
 				rotate = horizontalVisionError * smallAngleVisionHorizontalP;
 			}

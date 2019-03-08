@@ -41,6 +41,13 @@ public class ManipulatorGamepadControl extends Command {
       Robot.manipulator.setRoller(0);
     }
 
+    if (Robot.oi.gamepad.back.get()){
+      Robot.manipulator.setRoller(Manipulator.FINGER_OUT_SPEED);
+    }
+    else if (!Robot.oi.gamepad.back.get() && !Robot.oi.gamepad.rightButton.get()){
+      Robot.manipulator.setRoller(0);
+    }
+
     if (Robot.oi.gamepad.x.get() && !wasPressed) {
 			wasPressed = true;
 			if (manipulatorIsUp) {

@@ -11,11 +11,11 @@ import com.frcteam1939.deepspace2019.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ElevatorToMiddle extends Command {
+public class ElevatorToBottom extends Command {
 
   double time;
 
-  public ElevatorToMiddle() {
+  public ElevatorToBottom() {
     requires(Robot.elevator);
   }
 
@@ -25,13 +25,13 @@ public class ElevatorToMiddle extends Command {
 
   @Override
   protected void execute() {
-    Robot.elevator.set(1.0);
+    Robot.elevator.set(-0.5);
     time = this.timeSinceInitialized();
   }
 
   @Override
   protected boolean isFinished() {
-    return Robot.elevator.isAtMiddle() || time > 3.0;
+    return Robot.elevator.isAtBottom() || time > 3.0;
   }
 
   @Override

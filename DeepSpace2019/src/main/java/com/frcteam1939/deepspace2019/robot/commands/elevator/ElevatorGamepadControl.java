@@ -7,6 +7,9 @@
 
 package com.frcteam1939.deepspace2019.robot.commands.elevator;
 import com.frcteam1939.deepspace2019.robot.Robot;
+import com.frcteam1939.deepspace2019.robot.commands.automation.SetHeightMiddle;
+import com.frcteam1939.deepspace2019.robot.commands.automation.SetHeightTop;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 
@@ -21,32 +24,28 @@ public class ElevatorGamepadControl extends Command {
   @Override
   protected void execute() {
    
-      double move = -Robot.oi.gamepad.getRightY();
-      Robot.elevator.set(move);
+   double move = -Robot.oi.gamepad.getRightY();
+   Robot.elevator.set(move);
 
-      if(Robot.elevator.usePID()){
-        // Robot.oi.gamepad.a.whenPressed(new ElevatorToBottomPID());
-        // Robot.oi.gamepad.b.whenPressed(new ElevatorToMiddlePID());
-        // Robot.oi.gamepad.y.whenPressed(new ElevatorToTopPID());
-     }
-     else{
-        // Robot.oi.gamepad.b.whenPressed(new ElevatorToMiddle());
-        // Robot.oi.gamepad.y.whenPressed(new ElevatorToTop());
-     }
+   if (Robot.elevator.isAtBottom() && move < 0){
+      move = 0;
+   }
+
+   // Robot.oi.gamepad.y.whenPressed(new SetHeightTop());
+   // Robot.oi.gamepad.b.whenPressed(new SetHeightMiddle());
+   // Robot.oi.gamepad.a.whenPressed(new ElevatorToBottom());
   }
 
   @Override
   protected boolean isFinished() {
-        return false;
+   return false;
   }
 
   @Override
   protected void end() {
-     Robot.elevator.stop();
   }
 
   @Override
   protected void interrupted() {
-   Robot.elevator.stop();
   }
 }

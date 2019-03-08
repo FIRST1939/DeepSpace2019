@@ -8,21 +8,39 @@
 package com.frcteam1939.deepspace2019.robot.commands.elevator;
 
 import com.frcteam1939.deepspace2019.robot.Robot;
-import com.frcteam1939.deepspace2019.util.Wait;
 
-import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.Command;
 
-public class ElevatorToTop extends CommandGroup {
-  private static final double TIME_TO_TOP = 1;
+public class ElevatorToTop extends Command {
+
+  double time;
+
   public ElevatorToTop() {
-    
-    if(Robot.elevator.usePID()){
-        addSequential(new ElevatorToTopPID());
-    }
-    else{
-        addSequential(new SetElevatorMotorSpeed(1));
-        addSequential(new Wait(TIME_TO_TOP));
-        addSequential(new SetElevatorMotorSpeed(0));
-    }
+    requires(Robot.elevator);
+  }
+
+  @Override
+  protected void initialize() {
+  }
+
+  @Override
+  protected void execute() {
+    Robot.elevator.set(1.0);
+    time = this.timeSinceInitialized();
+  }
+
+  @Override
+  protected boolean isFinished() {
+    return Robot.elevator.isAtTop() || time > 3.0;
+  }
+
+  @Override
+  protected void end() {
+    Robot.elevator.stop();
+  }
+
+  @Override
+  protected void interrupted() {
+    Robot.elevator.stop();
   }
 }

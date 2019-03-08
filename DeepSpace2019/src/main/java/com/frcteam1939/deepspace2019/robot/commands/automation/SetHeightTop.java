@@ -5,17 +5,17 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package com.frcteam1939.deepspace2019.robot.commands.manipulator;
+package com.frcteam1939.deepspace2019.robot.commands.automation;
 
-import com.frcteam1939.deepspace2019.util.Wait;
+import com.frcteam1939.deepspace2019.robot.commands.arm.ArmToSetHeight;
+import com.frcteam1939.deepspace2019.robot.commands.elevator.ElevatorToTop;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class OutputHatchPanel extends CommandGroup {
+public class SetHeightTop extends CommandGroup {
 
-  public OutputHatchPanel() {
-    addSequential(new ShootHatchPanel());
-    addSequential(new Wait(1.0));
-    addSequential(new RetractShootSolenoid());
+  public SetHeightTop() {
+    addParallel(new ArmToSetHeight());
+    addSequential(new ElevatorToTop());
   }
 }

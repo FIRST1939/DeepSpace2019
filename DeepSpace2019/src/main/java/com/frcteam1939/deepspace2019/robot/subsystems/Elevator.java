@@ -53,10 +53,12 @@ public class Elevator extends Subsystem {
 
    // Initializes elevator talon & Sensors
   private CANSparkMax spark = new CANSparkMax(RobotMap.elevatorSpark, MotorType.kBrushless);
-  private DigitalInput isAtBottom = new DigitalInput(RobotMap.elevatorAtBottomHallEffect);
   public CANPIDController sparkPID = spark.getPIDController();
   public CANEncoder sparkEncoder = spark.getEncoder();
-  
+
+  private DigitalInput isAtBottom = new DigitalInput(RobotMap.elevatorAtBottomHallEffect);
+  private DigitalInput isAtMiddle = new DigitalInput(RobotMap.elevatorAtMiddleHallEffect);
+  private DigitalInput isAtTop = new DigitalInput(RobotMap.elevatorAtTopHallEffect);
 
   public Elevator(){
    
@@ -153,5 +155,13 @@ public class Elevator extends Subsystem {
 
 	public boolean isAtBottom() {
 		return !isAtBottom.get();
-	}
+  }
+  
+  public boolean isAtMiddle(){
+    return !isAtMiddle.get();
+  }
+
+  public boolean isAtTop(){
+    return !isAtTop.get();
+  }
 }

@@ -35,4 +35,6 @@ public class RobotMap {
   public static final int armSetHeightHallEffect = 0;
   public static final int hasCargoBanner = 1;
   public static final int elevatorAtBottomHallEffect = 2;
+  public static final int elevatorAtMiddleHallEffect = 3;
+  public static final int elevatorAtTopHallEffect = 4;
 }

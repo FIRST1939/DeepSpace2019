@@ -59,6 +59,8 @@ public class SmartDashboardUpdater extends Command {
     SmartDashboard.putBoolean("Vision Has Found Target", Robot.drivetrain.limelight.isTargetFound());
 
     SmartDashboard.putNumber("Pressure", Robot.getPressure());
+
+    SmartDashboard.putNumber("Skis Current", Robot.climber.getSkisCurrent());
   }
 
   @Override

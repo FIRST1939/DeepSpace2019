@@ -99,4 +99,8 @@ public class Climber extends Subsystem {
     public void setClimberWheelsTalonDisableBrakeMode(){
       climberWheelsTalon.setNeutralMode(NeutralMode.Coast);
     }
+
+    public double getSkisCurrent(){
+      return skiTalon.getOutputCurrent();
+    }
 }
