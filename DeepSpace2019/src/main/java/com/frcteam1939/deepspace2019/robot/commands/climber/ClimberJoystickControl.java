@@ -41,6 +41,10 @@ public class ClimberJoystickControl extends Command {
     if (Robot.oi.right.getRawButton(11)){
       rackGearValue = -0.75;
     }
+    if(Robot.oi.left.getRawButton(10)){
+      skisValue = 1;
+    }
+  
 
     Robot.climber.setClimberWheelsTalon(wheelsValue);
     Robot.climber.setSkiTalon(skisValue);

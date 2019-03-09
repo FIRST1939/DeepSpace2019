@@ -30,10 +30,6 @@ public class ElevatorGamepadControl extends Command {
    if (Robot.elevator.isAtBottom() && move < 0){
       move = 0;
    }
-
-   // Robot.oi.gamepad.y.whenPressed(new SetHeightTop());
-   // Robot.oi.gamepad.b.whenPressed(new SetHeightMiddle());
-   // Robot.oi.gamepad.a.whenPressed(new ElevatorToBottom());
   }
 
   @Override

@@ -64,7 +64,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Elevator PID", new TuneElevatorPID());
 
     UsbCamera cam = CameraServer.getInstance().startAutomaticCapture();
-    cam.setResolution(240, 180);
+    cam.setResolution(180, 120);
     cam.setBrightness(10);
     
     System.out.println("           Finished Intializing");

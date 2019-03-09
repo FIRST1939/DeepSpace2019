@@ -19,7 +19,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Manipulator extends Subsystem {
   
   public static final double IN_SPEED = -1.0;
-  public static final double OUT_SPEED = -1.0;
+  public static final double OUT_SPEED = -0.75;
   public static final double FINGER_OUT_SPEED = 0.4;
   public static final double FINGER_IN_SPEED = -1.0;
 

@@ -16,8 +16,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class ManipulatorGamepadControl extends Command {
 
   private boolean manipulatorIsDown = false;
-	private boolean manipulatorIsUp = true;
+  private boolean manipulatorIsUp = true;
+  private boolean velcroIsOut = false;
+  private boolean velcroIsIn = true;
+
   private boolean wasPressed = false;
+  private boolean wasPressedVelc = false;
+
   
   public ManipulatorGamepadControl() {
     requires(Robot.manipulator);
@@ -30,8 +35,32 @@ public class ManipulatorGamepadControl extends Command {
   @Override
   protected void execute() {
 
-    Robot.oi.gamepad.rightTrigger.whenPressed(new IntakeCargo());
-    Robot.oi.gamepad.leftTrigger.whenPressed(new IntakeHatchPanel());
+    Robot.oi.gamepad.rightTrigger.whenPressed(new IntakeCargoDelay());
+   
+    
+    if (Robot.oi.gamepad.leftTrigger.get() && !wasPressedVelc) {
+			wasPressedVelc = true;
+			if (velcroIsIn) {
+				Robot.manipulator.grabHatchPanel();
+				velcroIsOut = true;
+				velcroIsIn = false;
+			}
+			else if (velcroIsOut) {
+				Robot.manipulator.retractVelcroSolenoid();
+        velcroIsOut = false;
+				velcroIsIn = true;
+			}
+    } 
+    if (!Robot.oi.gamepad.leftTrigger.get()) {
+			wasPressedVelc = false;
+		}
+		else {
+			wasPressedVelc = true;
+		}
+    
+    
+   // Robot.oi.gamepad.leftTrigger.whenPressed(new IntakeHatchPanel());
+    
     Robot.oi.gamepad.leftButton.whenPressed(new OutputHatchPanel());
 
     if (Robot.oi.gamepad.rightButton.get()){
