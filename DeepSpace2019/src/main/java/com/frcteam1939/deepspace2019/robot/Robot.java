@@ -95,6 +95,13 @@ public class Robot extends TimedRobot {
       autonomousCommand.start();
     }
 
+    Robot.manipulator.manipulatorLower();
+    for (int i = 0; i<10; i++){
+    }
+    Robot.manipulator.deployCenterGrab();
+    Robot.manipulator.centerGrabDeployed = true;
+    Robot.manipulator.centerGrabIn = false;
+
     Robot.drivetrain.enableBrakeMode();
     Robot.elevator.enableBrakeMode();
     Robot.arm.enableBrakeMode();
