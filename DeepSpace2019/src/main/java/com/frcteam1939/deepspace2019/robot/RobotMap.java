@@ -25,16 +25,17 @@ public class RobotMap {
   // Solenoids
 	public static final int PCM = 0;
   public static final int manipulatorAngleSolenoid = 7;
-  public static final int manipulatorShootSolenoid = 5;
-  public static final int manipulatorVelcroSolenoid = 6;
+  public static final int manipulatorCenterGrabSolenoid = 6;
 
   // Analog Input
   public static final int pressureSensor = 0;
 
   // Digital Input
   public static final int armSetHeightHallEffect = 0;
-  public static final int hasCargoBanner = 1;
+  public static final int cargoAtBottomBanner = 1;
   public static final int elevatorAtBottomHallEffect = 2;
   public static final int elevatorAtMiddleHallEffect = 3;
   public static final int elevatorAtTopHallEffect = 4;
+  public static final int cargoAtTopBanner = 5;
+  public static final int cargoLimitSwitch = 6;
 }

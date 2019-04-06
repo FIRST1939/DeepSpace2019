@@ -8,11 +8,12 @@
 package com.frcteam1939.deepspace2019.robot.commands.manipulator;
 
 import com.frcteam1939.deepspace2019.robot.Robot;
+import com.frcteam1939.deepspace2019.robot.subsystems.Manipulator;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class RetractVelcroSolenoid extends Command {
-  public RetractVelcroSolenoid() {
+public class CargoMoveUp extends Command {
+  public CargoMoveUp() {
     requires(Robot.manipulator);
   }
 
@@ -22,19 +23,21 @@ public class RetractVelcroSolenoid extends Command {
 
   @Override
   protected void execute() {
-    Robot.manipulator.retractVelcroSolenoid();
+    Robot.manipulator.setRoller(Manipulator.CARGO_UP_SPEED);
   }
 
   @Override
   protected boolean isFinished() {
-    return true;
+    return Robot.manipulator.cargoIsAtTop();
   }
 
   @Override
   protected void end() {
+    Robot.manipulator.setRoller(0);
   }
 
   @Override
   protected void interrupted() {
+    Robot.manipulator.setRoller(0);
   }
 }

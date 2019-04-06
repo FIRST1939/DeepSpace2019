@@ -7,17 +7,37 @@
 
 package com.frcteam1939.deepspace2019.robot.commands.manipulator;
 
+import com.frcteam1939.deepspace2019.robot.Robot;
 import com.frcteam1939.deepspace2019.robot.subsystems.Manipulator;
-import com.frcteam1939.deepspace2019.util.Wait;
 
-import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.Command;
 
-public class IntakeCargoDelay extends CommandGroup {
+public class CargoMoveDown extends Command {
+  public CargoMoveDown() {
+    requires(Robot.manipulator);
+  }
 
-  public IntakeCargoDelay() {
-    addSequential(new IntakeCargo());
-    addSequential(new SetRollerSpeed(Manipulator.IN_SPEED));
-    addSequential(new Wait(0.05));
-    addSequential(new SetRollerSpeed(0));
+  @Override
+  protected void initialize() {
+  }
+
+  @Override
+  protected void execute() {
+    Robot.manipulator.setRoller(Manipulator.CARGO_DOWN_SPEED);
+  }
+
+  @Override
+  protected boolean isFinished() {
+    return Robot.manipulator.cargoIsAtBottom(); 
+  }
+
+  @Override
+  protected void end() {
+    Robot.manipulator.setRoller(0);
+  }
+
+  @Override
+  protected void interrupted() {
+    Robot.manipulator.setRoller(0);
   }
 }

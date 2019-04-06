@@ -42,7 +42,12 @@ public class SmartDashboardUpdater extends Command {
     SmartDashboard.putNumber("Elevator Speed", Robot.elevator.getSpeed());
     SmartDashboard.putBoolean("Elevator Is At Bottom", Robot.elevator.isAtBottom());
 
-    SmartDashboard.putBoolean("Has Cargo", Robot.manipulator.hasCargo());
+    SmartDashboard.putBoolean("Cargo is at Bottom", Robot.manipulator.cargoIsAtBottom());
+    SmartDashboard.putBoolean("Cargo is at Top", Robot.manipulator.cargoIsAtTop());
+    SmartDashboard.putBoolean("Can Deploy Center Grab", Robot.manipulator.canDeployCenterGrab());
+
+    SmartDashboard.putBoolean("Center Grab is Deployed", Robot.manipulator.centerGrabDeployed);
+    SmartDashboard.putBoolean("Center Grab is Retracted", Robot.manipulator.centerGrabIn);
 
     SmartDashboard.putNumber("Vision Horizontal Error", Robot.drivetrain.limelight.getHorizontalAngleError());
     SmartDashboard.putNumber("Vision Vertical Error", Robot.drivetrain.limelight.getVerticalAngleError());

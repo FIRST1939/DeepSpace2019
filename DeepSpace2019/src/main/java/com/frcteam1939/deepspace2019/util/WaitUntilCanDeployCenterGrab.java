@@ -5,14 +5,14 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package com.frcteam1939.deepspace2019.robot.commands.manipulator;
+package com.frcteam1939.deepspace2019.util;
 
 import com.frcteam1939.deepspace2019.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class RetractShootSolenoid extends Command {
-  public RetractShootSolenoid() {
+public class WaitUntilCanDeployCenterGrab extends Command {
+  public WaitUntilCanDeployCenterGrab() {
     requires(Robot.manipulator);
   }
 
@@ -22,12 +22,11 @@ public class RetractShootSolenoid extends Command {
 
   @Override
   protected void execute() {
-    Robot.manipulator.retractShootSolenoid();
   }
 
   @Override
   protected boolean isFinished() {
-    return true;
+    return Robot.manipulator.canDeployCenterGrab() || Robot.oi.gamepad.leftButton.get();
   }
 
   @Override

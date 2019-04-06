@@ -7,15 +7,14 @@
 
 package com.frcteam1939.deepspace2019.robot.commands.manipulator;
 
-import com.frcteam1939.deepspace2019.util.Wait;
+import com.frcteam1939.deepspace2019.util.WaitUntilCanDeployCenterGrab;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class IntakeHatchPanel extends CommandGroup {
 
   public IntakeHatchPanel() {
-    addSequential(new GrabHatchPanel());
-    addSequential(new Wait(0.5));
-    addSequential(new RetractVelcroSolenoid());
+    addSequential(new WaitUntilCanDeployCenterGrab());
+    addSequential(new DeployCenterGrab());
   }
 }

@@ -5,15 +5,15 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package com.frcteam1939.deepspace2019.robot.commands.climber;
+package com.frcteam1939.deepspace2019.robot.commands.manipulator;
 
 import com.frcteam1939.deepspace2019.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ClimberJoystickControl extends Command {
-  public ClimberJoystickControl() {
-    requires(Robot.climber);
+public class RetractCenterGrab extends Command {
+  public RetractCenterGrab() {
+    requires(Robot.manipulator);
   }
 
   @Override
@@ -22,38 +22,14 @@ public class ClimberJoystickControl extends Command {
 
   @Override
   protected void execute() {
-    double wheelsValue = 0;
-    double rackGearValue = 0;
-    double skisValue = 0;
-
-    if (Robot.oi.left.getRawButton(6)){
-      wheelsValue = 0.5;
-    }
-
-    if (Robot.oi.right.getRawButton(11)){
-      skisValue = -1;
-    }
-
-    if (Robot.oi.right.getRawButton(6)){
-      rackGearValue = 0.75;
-    }
-
-    if (Robot.oi.right.getRawButton(7)){
-      rackGearValue = -0.75;
-    }
-    if(Robot.oi.right.getRawButton(10)){
-      skisValue = 1;
-    }
-  
-
-    Robot.climber.setClimberWheelsTalon(wheelsValue);
-    Robot.climber.setSkiTalon(skisValue);
-    Robot.climber.setRackGearSpark(rackGearValue);
+    Robot.manipulator.retractCenterGrab();
+    Robot.manipulator.centerGrabDeployed = false;
+    Robot.manipulator.centerGrabIn = true;
   }
 
   @Override
   protected boolean isFinished() {
-    return false;
+    return true;
   }
 
   @Override

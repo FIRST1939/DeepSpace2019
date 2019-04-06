@@ -11,8 +11,8 @@ import com.frcteam1939.deepspace2019.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ShootHatchPanel extends Command {
-  public ShootHatchPanel() {
+public class DeployCenterGrab extends Command {
+  public DeployCenterGrab() {
     requires(Robot.manipulator);
   }
 
@@ -22,7 +22,9 @@ public class ShootHatchPanel extends Command {
 
   @Override
   protected void execute() {
-    Robot.manipulator.shootHatchPanel();
+    Robot.manipulator.deployCenterGrab();
+    Robot.manipulator.centerGrabDeployed = true;
+    Robot.manipulator.centerGrabIn = false;
   }
 
   @Override

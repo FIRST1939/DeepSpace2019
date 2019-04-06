@@ -17,11 +17,9 @@ public class ManipulatorGamepadControl extends Command {
 
   private boolean manipulatorIsDown = false;
   private boolean manipulatorIsUp = true;
-  private boolean velcroIsOut = false;
-  private boolean velcroIsIn = true;
 
   private boolean wasPressed = false;
-  private boolean wasPressedVelc = false;
+  private boolean wasPressedCenter = false;
 
   
   public ManipulatorGamepadControl() {
@@ -35,33 +33,30 @@ public class ManipulatorGamepadControl extends Command {
   @Override
   protected void execute() {
 
-    Robot.oi.gamepad.rightTrigger.whenPressed(new IntakeCargoDelay());
-   
+    Robot.oi.gamepad.rightTrigger.whenPressed(new IntakeCargoCenter());
     
-    if (Robot.oi.gamepad.leftTrigger.get() && !wasPressedVelc) {
-			wasPressedVelc = true;
-			if (velcroIsIn) {
-				Robot.manipulator.grabHatchPanel();
-				velcroIsOut = true;
-				velcroIsIn = false;
+    if (Robot.oi.gamepad.leftButton.get() && !wasPressedCenter) {
+			wasPressedCenter = true;
+			if (Robot.manipulator.centerGrabDeployed) {
+				Robot.manipulator.retractCenterGrab();;
+				Robot.manipulator.centerGrabIn = true;
+				Robot.manipulator.centerGrabDeployed = false;
 			}
-			else if (velcroIsOut) {
-				Robot.manipulator.retractVelcroSolenoid();
-        velcroIsOut = false;
-				velcroIsIn = true;
+			else if (Robot.manipulator.centerGrabIn){
+				Robot.manipulator.deployCenterGrab();
+        Robot.manipulator.centerGrabIn = false;
+				Robot.manipulator.centerGrabDeployed = true;
 			}
     } 
-    if (!Robot.oi.gamepad.leftTrigger.get()) {
-			wasPressedVelc = false;
+    if (!Robot.oi.gamepad.leftButton.get()) {
+			wasPressedCenter = false;
 		}
 		else {
-			wasPressedVelc = true;
+			wasPressedCenter = true;
 		}
     
-    
-   // Robot.oi.gamepad.leftTrigger.whenPressed(new IntakeHatchPanel());
-    
-    Robot.oi.gamepad.leftButton.whenPressed(new OutputHatchPanel());
+    Robot.oi.gamepad.leftTrigger.whenPressed(new IntakeHatchPanel());
+    // Robot.oi.gamepad.leftButton.whenPressed(new OutputHatchPanel());
 
     if (Robot.oi.gamepad.rightButton.get()){
       Robot.manipulator.setRoller(Manipulator.OUT_SPEED);

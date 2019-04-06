@@ -8,33 +8,20 @@
 package com.frcteam1939.deepspace2019.robot.commands.manipulator;
 
 import com.frcteam1939.deepspace2019.robot.Robot;
+import com.frcteam1939.deepspace2019.util.Wait;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class GrabHatchPanel extends Command {
-  public GrabHatchPanel() {
-    requires(Robot.manipulator);
-  }
+public class IntakeCargoCenter extends CommandGroup {
 
-  @Override
-  protected void initialize() {
-  }
-
-  @Override
-  protected void execute() {
-    Robot.manipulator.grabHatchPanel();
-  }
-
-  @Override
-  protected boolean isFinished() {
-    return true;
-  }
-
-  @Override
-  protected void end() {
-  }
-
-  @Override
-  protected void interrupted() {
+  public IntakeCargoCenter() {
+    addSequential(new IntakeCargo());
+    addSequential(new Wait(0.5));
+    if (Robot.manipulator.cargoIsAtBottom() && !Robot.manipulator.cargoIsAtTop()){
+      addSequential(new CargoMoveUp());
+    }
+    else if (!Robot.manipulator.cargoIsAtBottom() && Robot.manipulator.cargoIsAtTop()){
+      addSequential(new CargoMoveDown());
+    }
   }
 }
