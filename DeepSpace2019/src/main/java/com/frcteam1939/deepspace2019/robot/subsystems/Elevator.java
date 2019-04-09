@@ -57,8 +57,8 @@ public class Elevator extends Subsystem {
   public CANEncoder sparkEncoder = spark.getEncoder();
 
   private DigitalInput isAtBottom = new DigitalInput(RobotMap.elevatorAtBottomHallEffect);
-  private DigitalInput isAtMiddle = new DigitalInput(RobotMap.elevatorAtMiddleHallEffect);
-  private DigitalInput isAtTop = new DigitalInput(RobotMap.elevatorAtTopHallEffect);
+  // private DigitalInput isAtMiddle = new DigitalInput(RobotMap.elevatorAtMiddleHallEffect);
+  // private DigitalInput isAtTop = new DigitalInput(RobotMap.elevatorAtTopHallEffect);
 
   public Elevator(){
    
@@ -157,11 +157,11 @@ public class Elevator extends Subsystem {
 		return !isAtBottom.get();
   }
   
-  public boolean isAtMiddle(){
-    return !isAtMiddle.get();
-  }
+  // public boolean isAtMiddle(){
+    // return !isAtMiddle.get();
+  // }
 
-  public boolean isAtTop(){
-    return !isAtTop.get();
-  }
+  // public boolean isAtTop(){
+    // return !isAtTop.get();
+  // }
 }

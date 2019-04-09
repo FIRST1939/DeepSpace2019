@@ -28,7 +28,7 @@ public class CargoMoveDown extends Command {
 
   @Override
   protected boolean isFinished() {
-    return Robot.manipulator.cargoIsAtBottom(); 
+    return Robot.manipulator.cargoIsAtBottom() || Robot.oi.gamepad.start.get(); 
   }
 
   @Override

@@ -15,8 +15,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ManipulatorGamepadControl extends Command {
 
-  private boolean manipulatorIsDown = false;
-  private boolean manipulatorIsUp = true;
+  private boolean manipulatorIsDown = true;
+  private boolean manipulatorIsUp = false;
 
   private boolean wasPressed = false;
   private boolean wasPressedCenter = false;
@@ -72,7 +72,7 @@ public class ManipulatorGamepadControl extends Command {
       Robot.manipulator.setRoller(0);
     }
 
-    if (Robot.oi.gamepad.x.get() && !wasPressed) {
+    /* if (Robot.oi.gamepad.x.get() && !wasPressed) {
 			wasPressed = true;
 			if (manipulatorIsUp) {
 				Robot.manipulator.manipulatorLower();
@@ -92,6 +92,10 @@ public class ManipulatorGamepadControl extends Command {
 		else {
 			wasPressed = true;
 		}
+    */
+
+    Robot.oi.gamepad.x.whenPressed(new LowerManipulator());
+    Robot.oi.gamepad.y.whenPressed(new RaiseManipulator());
 
 		SmartDashboard.putBoolean("Manipulator is Raised", manipulatorIsUp);
 		SmartDashboard.putBoolean("Manipulator is Lowered", manipulatorIsDown);

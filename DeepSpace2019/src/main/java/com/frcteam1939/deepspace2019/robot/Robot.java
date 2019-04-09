@@ -96,8 +96,6 @@ public class Robot extends TimedRobot {
     }
 
     Robot.manipulator.manipulatorLower();
-    for (int i = 0; i<10; i++){
-    }
     Robot.manipulator.deployCenterGrab();
     Robot.manipulator.centerGrabDeployed = true;
     Robot.manipulator.centerGrabIn = false;

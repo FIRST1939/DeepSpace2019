@@ -31,7 +31,7 @@ public class ElevatorToTop extends Command {
 
   @Override
   protected boolean isFinished() {
-    return Robot.elevator.isAtTop() || time > 3.0;
+    return true; // Robot.elevator.isAtTop() || time > 3.0;
   }
 
   @Override

@@ -13,6 +13,7 @@ import com.frcteam1939.deepspace2019.robot.RobotMap;
 import com.frcteam1939.deepspace2019.robot.commands.manipulator.ManipulatorGamepadControl;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -36,6 +37,13 @@ public class Manipulator extends Subsystem {
   private DigitalInput topBanner = new DigitalInput(RobotMap.cargoAtTopBanner);
   private DigitalInput bottomBanner = new DigitalInput(RobotMap.cargoAtBottomBanner);
   private DigitalInput limit = new DigitalInput(RobotMap.cargoLimitSwitch);
+  
+  private DigitalOutput light1 = new DigitalOutput(RobotMap.light4);
+  private DigitalOutput light2 = new DigitalOutput(RobotMap.light7);
+  private DigitalOutput light3 = new DigitalOutput(RobotMap.light8);
+  private DigitalOutput light4 = new DigitalOutput(RobotMap.light9);
+
+
 
   @Override
   public void initDefaultCommand() {
@@ -56,10 +64,18 @@ public class Manipulator extends Subsystem {
 
   public void deployCenterGrab(){
     centerGrabSolenoid.set(true);
+    light1.set(true);
+    light2.set(true);
+    light3.set(true);
+    light4.set(true);
   }
 
   public void retractCenterGrab(){
     centerGrabSolenoid.set(false);
+    light1.set(false);
+    light2.set(false);
+    light3.set(false);
+    light4.set(false);
   }
 
   public boolean cargoIsAtBottom(){
