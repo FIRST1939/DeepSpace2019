@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.command.Subsystem; //import the Subsystem template 
 import com.ctre.phoenix.motorcontrol.ControlMode; //imports Control Mode for the motor controllers
 import com.ctre.phoenix.motorcontrol.NeutralMode; //imports the NeutralMode for the motor controllers
 import com.ctre.phoenix.motorcontrol.can.TalonSRX; //import the TalonSRX Class
+import com.frcteam1939.deepspace2019.robot.Robot;
 import com.frcteam1939.deepspace2019.robot.RobotMap;//import robotmap file for motor controller ids
 import com.frcteam1939.deepspace2019.robot.commands.climber.ClimberJoystickControl;
 import com.revrobotics.CANSparkMax;
@@ -43,6 +44,9 @@ public class Climber extends Subsystem {
      */
     public void setSkiTalon(double value) {
       skiTalon.set(ControlMode.PercentOutput, value);
+      if((Math.abs(value))>0){
+        Robot.lights.solidPurple();
+      }
     }
   
     /**
@@ -50,6 +54,9 @@ public class Climber extends Subsystem {
      */
     public void setRackGearSpark(double value) {
       rackGearSpark.set(value);
+      if((Math.abs(value))>0){
+        Robot.lights.solidPurple();
+      }
     }
   
     /**

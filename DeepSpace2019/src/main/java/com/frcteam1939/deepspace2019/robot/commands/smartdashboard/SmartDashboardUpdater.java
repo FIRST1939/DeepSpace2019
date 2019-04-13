@@ -44,7 +44,7 @@ public class SmartDashboardUpdater extends Command {
 
     SmartDashboard.putBoolean("Cargo is at Bottom", Robot.manipulator.cargoIsAtBottom());
     SmartDashboard.putBoolean("Cargo is at Top", Robot.manipulator.cargoIsAtTop());
-    SmartDashboard.putBoolean("Can Deploy Center Grab", Robot.manipulator.canDeployCenterGrab());
+    SmartDashboard.putBoolean("Can Deploy Center Grab", Robot.manipulator.hasHatchPanel());
 
     SmartDashboard.putBoolean("Center Grab is Deployed", Robot.manipulator.centerGrabDeployed);
     SmartDashboard.putBoolean("Center Grab is Retracted", Robot.manipulator.centerGrabIn);

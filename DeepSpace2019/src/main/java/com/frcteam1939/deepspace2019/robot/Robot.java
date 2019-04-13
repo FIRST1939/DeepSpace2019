@@ -10,6 +10,8 @@ package com.frcteam1939.deepspace2019.robot;
 import com.frcteam1939.deepspace2019.robot.subsystems.Climber;
 import com.frcteam1939.deepspace2019.robot.commands.elevator.TuneElevatorPID;
 import com.frcteam1939.deepspace2019.robot.subsystems.Arm;
+import com.frcteam1939.deepspace2019.robot.subsystems.Lights;
+
 import com.frcteam1939.deepspace2019.robot.subsystems.Drivetrain;
 import com.frcteam1939.deepspace2019.robot.subsystems.Manipulator;
 import com.frcteam1939.deepspace2019.robot.subsystems.Elevator;
@@ -31,6 +33,7 @@ public class Robot extends TimedRobot {
   public static SmartDashboardSubsystem smartDashboard;
   public static Climber climber;
   public static Arm arm;
+  public static Lights lights;
   public static Manipulator manipulator;
 
 	static {
@@ -40,6 +43,7 @@ public class Robot extends TimedRobot {
       smartDashboard = new SmartDashboardSubsystem();
       climber = new Climber();
       arm = new Arm();
+      lights = new Lights();
       manipulator = new Manipulator();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -80,11 +84,13 @@ public class Robot extends TimedRobot {
     Robot.drivetrain.disableBrakeMode();
     Robot.elevator.disableBrakeMode();
     Robot.arm.enableBrakeMode();
+    Robot.lights.rainbow();
   }
 
   @Override
   public void disabledPeriodic() {
     Scheduler.getInstance().run();
+    Robot.lights.rainbow();
   }
 
   @Override
