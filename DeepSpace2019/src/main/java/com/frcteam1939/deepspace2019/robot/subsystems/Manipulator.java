@@ -9,6 +9,7 @@ package com.frcteam1939.deepspace2019.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.frcteam1939.deepspace2019.robot.Robot;
 import com.frcteam1939.deepspace2019.robot.RobotMap;
 import com.frcteam1939.deepspace2019.robot.commands.manipulator.ManipulatorGamepadControl;
 
@@ -39,10 +40,6 @@ public class Manipulator extends Subsystem {
   private DigitalInput bottomBanner = new DigitalInput(RobotMap.cargoAtBottomBanner);
   private DigitalInput limit = new DigitalInput(RobotMap.cargoLimitSwitch);
   
-  private DigitalOutput light1 = new DigitalOutput(RobotMap.light4);
-  private DigitalOutput light2 = new DigitalOutput(RobotMap.light7);
-  private DigitalOutput light3 = new DigitalOutput(RobotMap.light8);
-  private DigitalOutput light4 = new DigitalOutput(RobotMap.light9);
 
   private AnalogInput distanceSensor = new AnalogInput(RobotMap.distanceSensor);
 
@@ -53,6 +50,9 @@ public class Manipulator extends Subsystem {
 
   public void setRoller(double value){
     talon.set(ControlMode.PercentOutput, value);
+    if((Math.abs(value))>0){
+      Robot.lights.orangeBlink();
+    }
   }
 
   public void manipulatorRaise(){
@@ -65,18 +65,12 @@ public class Manipulator extends Subsystem {
 
   public void deployCenterGrab(){
     centerGrabSolenoid.set(true);
-    light1.set(true);
-    light2.set(true);
-    light3.set(true);
-    light4.set(true);
+    Robot.lights.solidGreen();
   }
 
   public void retractCenterGrab(){
     centerGrabSolenoid.set(false);
-    light1.set(false);
-    light2.set(false);
-    light3.set(false);
-    light4.set(false);
+    Robot.lights.solidRed();
   }
 
   public double getDistanceSensorReading(){
@@ -90,8 +84,16 @@ public class Manipulator extends Subsystem {
   public boolean cargoIsAtTop(){
     return !topBanner.get();
   }
+  
+  public boolean hasCargo(){
+    return (Robot.manipulator.cargoIsAtBottom() && Robot.manipulator.cargoIsAtTop());
+  }
 
-  public boolean canDeployCenterGrab(){
+  public boolean hasHatchPanel(){
+    if(limit.get()){
+      Robot.lights.solidYellow();
+    }
     return limit.get();
+
   }
 }

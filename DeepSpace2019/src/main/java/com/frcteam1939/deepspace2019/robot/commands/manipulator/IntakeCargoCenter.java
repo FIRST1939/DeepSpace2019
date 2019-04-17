@@ -23,5 +23,8 @@ public class IntakeCargoCenter extends CommandGroup {
     else if (!Robot.manipulator.cargoIsAtBottom() && Robot.manipulator.cargoIsAtTop()){
       addSequential(new CargoMoveDown());
     }
+    if(Robot.manipulator.cargoIsAtBottom() && Robot.manipulator.cargoIsAtTop()){
+      Robot.lights.solidOrange();
+    }
   }
 }

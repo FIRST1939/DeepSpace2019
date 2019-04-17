@@ -10,6 +10,7 @@ package com.frcteam1939.deepspace2019.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.frcteam1939.deepspace2019.robot.Robot;
 import com.frcteam1939.deepspace2019.robot.RobotMap;
 import com.frcteam1939.deepspace2019.robot.commands.arm.ArmGamepadControl;
 
@@ -43,6 +44,18 @@ public class Arm extends Subsystem {
   // Negative is moving down
   public void set(double value){
     talon.set(ControlMode.PercentOutput, -value);
+    if((value>0) && Robot.manipulator.hasHatchPanel()){
+      Robot.lights.yellowUp();
+    }
+    else if((value<0) && Robot.manipulator.hasHatchPanel()){
+      Robot.lights.yellowDown();
+    }
+    if((value>0) && Robot.manipulator.hasCargo()){
+      Robot.lights.orangeUp();
+    }
+    else if((value<0) && Robot.manipulator.hasCargo()){
+      Robot.lights.orangeDown();
+    }
   }
 
   public void stop(){

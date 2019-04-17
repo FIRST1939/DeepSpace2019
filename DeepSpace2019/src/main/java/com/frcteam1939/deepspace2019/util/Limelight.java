@@ -60,7 +60,7 @@ public class Limelight {
     public boolean isTargetFound(){
         NetworkTableEntry tv = table.getEntry("tv");
         double value = tv.getDouble(0);
-        if (value == 1){
+        if (value == 1){   
             return true;
         } else {
             return false; 

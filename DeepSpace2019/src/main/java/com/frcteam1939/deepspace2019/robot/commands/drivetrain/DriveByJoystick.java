@@ -62,6 +62,10 @@ public class DriveByJoystick extends Command {
 		}
 
 		if (wantVision) {
+			Robot.lights.solidBlue();
+			if(Robot.drivetrain.limelight.isTargetFound()){
+				Robot.lights.blueBlink();
+			}
 			Robot.drivetrain.limelight.setCamMode(0);
 			Robot.drivetrain.limelight.setPipeline(0);
 			horizontalVisionError = Robot.drivetrain.limelight.getHorizontalAngleError();
@@ -73,6 +77,7 @@ public class DriveByJoystick extends Command {
 			}
 
 			if (horizontalVisionError < 5.0) {
+				Robot.lights.solidBlue();
 				rotate = horizontalVisionError * smallAngleVisionHorizontalP;
 			}
 			else {

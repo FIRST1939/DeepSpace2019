@@ -22,11 +22,12 @@ public class WaitUntilCanDeployCenterGrab extends Command {
 
   @Override
   protected void execute() {
+    Robot.lights.yellowBlink();
   }
 
   @Override
   protected boolean isFinished() {
-    return Robot.manipulator.canDeployCenterGrab() || Robot.oi.gamepad.leftButton.get();
+    return Robot.manipulator.hasHatchPanel() || Robot.oi.gamepad.leftButton.get();
   }
 
   @Override
