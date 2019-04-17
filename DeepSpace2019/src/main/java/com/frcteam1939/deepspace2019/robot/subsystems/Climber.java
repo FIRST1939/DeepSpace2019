@@ -7,20 +7,20 @@
 
 package com.frcteam1939.deepspace2019.robot.subsystems; //package declaration
 
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem; //import the Subsystem template class
 import com.ctre.phoenix.motorcontrol.ControlMode; //imports Control Mode for the motor controllers
 import com.ctre.phoenix.motorcontrol.NeutralMode; //imports the NeutralMode for the motor controllers
 import com.ctre.phoenix.motorcontrol.can.TalonSRX; //import the TalonSRX Class
 import com.frcteam1939.deepspace2019.robot.RobotMap;//import robotmap file for motor controller ids
 import com.frcteam1939.deepspace2019.robot.commands.climber.ClimberJoystickControl;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMax.IdleMode;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 public class Climber extends Subsystem {
+
     TalonSRX skiTalon = new TalonSRX(RobotMap.skiTalon); //construct the skiTalon, which controls the skis
-    CANSparkMax rackGearSpark = new CANSparkMax(RobotMap.rackGearSpark, MotorType.kBrushless); //construct the rackGearTalon, which controls the ascent and descent of the climber wheels
     TalonSRX climberWheelsTalon = new TalonSRX(RobotMap.climberWheelsTalon); //construct the climberWheelsTalon, which controls the motor which powers the climber wheels
+
+    private Solenoid climberSolenoid = new Solenoid(RobotMap.climberSolenoid);
 
     /**
      * The constructor. This initializes various default settings for the motor controllers.
@@ -46,13 +46,6 @@ public class Climber extends Subsystem {
     }
   
     /**
-     * Sets the percent output of the rackGearSpark.
-     */
-    public void setRackGearSpark(double value) {
-      rackGearSpark.set(value);
-    }
-  
-    /**
      * Sets the percent output of the climberWheelsTalon.
      */
     public void setClimberWheelsTalon(double value){
@@ -65,13 +58,7 @@ public class Climber extends Subsystem {
     public void setSkiTalonEnableBrakeMode() {
       skiTalon.setNeutralMode(NeutralMode.Brake);
     }
-    /**
-     * Sets the rackGearSpark's neutral state as break.
-    */
 
-    public void setRackGearSparkEnableBrakeMode(){
-      rackGearSpark.setIdleMode(IdleMode.kBrake);
-    }
     /**
      * Sets the climberWheelsTalon's neutral state as break.
     */
@@ -87,17 +74,18 @@ public class Climber extends Subsystem {
     }
   
     /**
-     * Sets the rackGearSpark's neutral state as coast.
-    */
-    public void setRackGearSparkDisableBrakeMode(){
-      rackGearSpark.setIdleMode(IdleMode.kCoast);
-    }
-  
-    /**
      * Sets the climberWheelsTalon's neutral state as coast.
     */
     public void setClimberWheelsTalonDisableBrakeMode(){
       climberWheelsTalon.setNeutralMode(NeutralMode.Coast);
+    }
+
+    public void footDown(){
+      climberSolenoid.set(true);
+    }
+
+    public void footUp(){
+      climberSolenoid.set(false);
     }
 
     public double getSkisCurrent(){

@@ -15,13 +15,13 @@ import com.frcteam1939.deepspace2019.robot.commands.arm.ArmGamepadControl;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 public class Arm extends Subsystem {
 
   private TalonSRX talon = new TalonSRX(RobotMap.armTalon);
 
-  private DigitalInput hallEffect = new DigitalInput(RobotMap.armSetHeightHallEffect);
+  private DigitalInput setHeightHallEffect = new DigitalInput(RobotMap.armSetHeightHallEffect);
+  private DigitalInput bottomHallEffect = new DigitalInput(RobotMap.armAtBottomHallEffect);
 
   private static final double MAX_OUTPUT = 0.25;
 
@@ -58,6 +58,10 @@ public class Arm extends Subsystem {
   }
 
   public boolean isAtSetHeight(){
-    return !hallEffect.get();
+    return !setHeightHallEffect.get();
+  }
+
+  public boolean armAtBottom(){
+    return !bottomHallEffect.get();
   }
 }

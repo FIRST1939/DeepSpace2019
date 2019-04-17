@@ -23,7 +23,6 @@ public class ClimberJoystickControl extends Command {
   @Override
   protected void execute() {
     double wheelsValue = 0;
-    double rackGearValue = 0;
     double skisValue = 0;
 
     if (Robot.oi.left.getRawButton(6)){
@@ -33,22 +32,21 @@ public class ClimberJoystickControl extends Command {
     if (Robot.oi.right.getRawButton(11)){
       skisValue = -1;
     }
-
-    if (Robot.oi.right.getRawButton(6)){
-      rackGearValue = 0.75;
-    }
-
-    if (Robot.oi.right.getRawButton(7)){
-      rackGearValue = -0.75;
-    }
+    
     if(Robot.oi.right.getRawButton(10)){
       skisValue = 1;
     }
-  
 
+    if (Robot.oi.right.getRawButton(6)){
+      Robot.climber.footDown();
+    }
+
+    if (Robot.oi.right.getRawButton(7)){
+      Robot.climber.footUp();
+    }
+  
     Robot.climber.setClimberWheelsTalon(wheelsValue);
     Robot.climber.setSkiTalon(skisValue);
-    Robot.climber.setRackGearSpark(rackGearValue);
   }
 
   @Override

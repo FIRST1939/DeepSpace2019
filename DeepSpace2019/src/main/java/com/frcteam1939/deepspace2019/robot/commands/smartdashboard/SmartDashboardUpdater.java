@@ -36,6 +36,7 @@ public class SmartDashboardUpdater extends Command {
     // SmartDashboard.putNumber("Heading", Robot.drivetrain.getHeading());
     
     SmartDashboard.putBoolean("Arm Is At Set Height", Robot.arm.isAtSetHeight());
+    SmartDashboard.putBoolean("Arm Is At Bottom", Robot.arm.armAtBottom());
 
     SmartDashboard.putNumber("Elevator Revolutions", Robot.elevator.getRawUnits());
     SmartDashboard.putNumber("Elevator Height", Robot.elevator.getHeight());
@@ -45,6 +46,7 @@ public class SmartDashboardUpdater extends Command {
     SmartDashboard.putBoolean("Cargo is at Bottom", Robot.manipulator.cargoIsAtBottom());
     SmartDashboard.putBoolean("Cargo is at Top", Robot.manipulator.cargoIsAtTop());
     SmartDashboard.putBoolean("Can Deploy Center Grab", Robot.manipulator.canDeployCenterGrab());
+    SmartDashboard.putNumber("Distance Sensor Reading", Robot.manipulator.getDistanceSensorReading());
 
     SmartDashboard.putBoolean("Center Grab is Deployed", Robot.manipulator.centerGrabDeployed);
     SmartDashboard.putBoolean("Center Grab is Retracted", Robot.manipulator.centerGrabIn);

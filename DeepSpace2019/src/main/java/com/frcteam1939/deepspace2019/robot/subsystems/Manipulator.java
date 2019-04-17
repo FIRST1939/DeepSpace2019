@@ -12,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.frcteam1939.deepspace2019.robot.RobotMap;
 import com.frcteam1939.deepspace2019.robot.commands.manipulator.ManipulatorGamepadControl;
 
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -43,7 +44,7 @@ public class Manipulator extends Subsystem {
   private DigitalOutput light3 = new DigitalOutput(RobotMap.light8);
   private DigitalOutput light4 = new DigitalOutput(RobotMap.light9);
 
-
+  private AnalogInput distanceSensor = new AnalogInput(RobotMap.distanceSensor);
 
   @Override
   public void initDefaultCommand() {
@@ -76,6 +77,10 @@ public class Manipulator extends Subsystem {
     light2.set(false);
     light3.set(false);
     light4.set(false);
+  }
+
+  public double getDistanceSensorReading(){
+    return distanceSensor.getVoltage();
   }
 
   public boolean cargoIsAtBottom(){

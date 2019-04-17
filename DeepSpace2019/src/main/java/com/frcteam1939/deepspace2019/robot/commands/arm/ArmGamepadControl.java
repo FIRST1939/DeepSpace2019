@@ -26,6 +26,9 @@ public class ArmGamepadControl extends Command {
     Robot.oi.gamepad.b.whenPressed(new ArmToSetHeight());
 
     double value = -Robot.oi.gamepad.getLeftY() / 2;
+    if (Robot.arm.armAtBottom() && value < 0){
+      value = 0;
+    }
     Robot.arm.set(value);
   }
 

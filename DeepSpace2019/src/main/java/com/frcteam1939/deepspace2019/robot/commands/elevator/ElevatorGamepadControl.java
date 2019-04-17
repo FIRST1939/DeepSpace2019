@@ -25,11 +25,10 @@ public class ElevatorGamepadControl extends Command {
   protected void execute() {
    
    double move = -Robot.oi.gamepad.getRightY();
-   Robot.elevator.set(move);
-
    if (Robot.elevator.isAtBottom() && move < 0){
-      move = 0;
+     move = 0;
    }
+   Robot.elevator.set(move);
   }
 
   @Override
