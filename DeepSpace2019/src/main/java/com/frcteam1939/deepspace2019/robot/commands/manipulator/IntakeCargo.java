@@ -24,8 +24,8 @@ public class IntakeCargo extends Command {
 
   @Override
   protected void execute() {
-    Robot.manipulator.setRoller(Manipulator.IN_SPEED);
     Robot.lights.orangeBlink();
+    Robot.manipulator.setRoller(Manipulator.IN_SPEED);
   }
 
   @Override
