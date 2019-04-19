@@ -7,6 +7,7 @@
 
 package com.frcteam1939.deepspace2019.robot.subsystems; //package declaration
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem; //import the Subsystem template class
 import com.ctre.phoenix.motorcontrol.ControlMode; //imports Control Mode for the motor controllers
@@ -21,7 +22,7 @@ public class Climber extends Subsystem {
     TalonSRX skiTalon = new TalonSRX(RobotMap.skiTalon); //construct the skiTalon, which controls the skis
     TalonSRX climberWheelsTalon = new TalonSRX(RobotMap.climberWheelsTalon); //construct the climberWheelsTalon, which controls the motor which powers the climber wheels
 
-    private Solenoid climberSolenoid = new Solenoid(RobotMap.climberSolenoid);
+    private DoubleSolenoid climberSolenoid = new DoubleSolenoid(RobotMap.climberSolenoidIn, RobotMap.climberSolenoidOut);
 
     /**
      * The constructor. This initializes various default settings for the motor controllers.
@@ -85,11 +86,11 @@ public class Climber extends Subsystem {
     }
 
     public void footDown(){
-      climberSolenoid.set(true);
+      climberSolenoid.set(DoubleSolenoid.Value.kForward);
     }
 
     public void footUp(){
-      climberSolenoid.set(false);
+      climberSolenoid.set(DoubleSolenoid.Value.kReverse);
     }
 
     public double getSkisCurrent(){
