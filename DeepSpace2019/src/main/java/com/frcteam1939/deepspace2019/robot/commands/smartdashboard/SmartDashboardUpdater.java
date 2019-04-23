@@ -8,6 +8,7 @@
 package com.frcteam1939.deepspace2019.robot.commands.smartdashboard;
 
 import com.frcteam1939.deepspace2019.robot.Robot;
+import com.frcteam1939.deepspace2019.robot.commands.automation.*;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -67,6 +68,7 @@ public class SmartDashboardUpdater extends Command {
     SmartDashboard.putNumber("Pressure", Robot.getPressure());
 
     SmartDashboard.putNumber("Skis Current", Robot.climber.getSkisCurrent());
+    SmartDashboard.putData("Systems Check", new SystemsCheck());
   }
 
   @Override
