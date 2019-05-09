@@ -9,8 +9,10 @@ package com.frcteam1939.deepspace2019.robot.commands.elevator;
 import com.frcteam1939.deepspace2019.robot.Robot;
 import com.frcteam1939.deepspace2019.robot.commands.automation.SetHeightMiddle;
 import com.frcteam1939.deepspace2019.robot.commands.automation.SetHeightTop;
+import com.frcteam1939.deepspace2019.util.Wait;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.Scheduler;
 
 
 public class ElevatorGamepadControl extends Command {
@@ -24,12 +26,24 @@ public class ElevatorGamepadControl extends Command {
   @Override
   protected void execute() {
    
+  
    double move = -Robot.oi.gamepad.getRightY();
    if (Robot.elevator.isAtBottom() && move < 0){
      move = 0;
    }
    Robot.elevator.set(move);
+
+   
+   if(Robot.oi.gamepad.getPOV(0)==0.0){
+    Scheduler.getInstance().add(new ElevatorToTop());
+   }
+   else if(Robot.oi.gamepad.getPOV(0)==90.0){
+    Scheduler.getInstance().add(new ElevatorToMiddle());
+   }
+
   }
+
+  
 
   @Override
   protected boolean isFinished() {

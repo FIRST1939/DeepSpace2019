@@ -8,6 +8,7 @@
 package com.frcteam1939.deepspace2019.robot.commands.arm;
 
 import com.frcteam1939.deepspace2019.robot.Robot;
+import com.frcteam1939.deepspace2019.robot.commands.elevator.ElevatorToTop;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -24,6 +25,8 @@ public class ArmGamepadControl extends Command {
   protected void execute() {
 
     Robot.oi.gamepad.b.whenPressed(new ArmToSetHeight());
+    
+   
 
     double value = -Robot.oi.gamepad.getLeftY() / 2;
     if (Robot.arm.armAtBottom() && value < 0){

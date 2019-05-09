@@ -9,6 +9,7 @@ package com.frcteam1939.deepspace2019.robot.commands.smartdashboard;
 
 import com.frcteam1939.deepspace2019.robot.Robot;
 import com.frcteam1939.deepspace2019.robot.commands.automation.*;
+import com.frcteam1939.deepspace2019.robot.commands.elevator.ElevatorToTop;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -58,7 +59,8 @@ public class SmartDashboardUpdater extends Command {
     SmartDashboard.putNumber("Vision Target Exact Distance", Robot.drivetrain.limelight.getTargetExactDistance());
     SmartDashboard.putNumber("Vision Latency", Robot.drivetrain.limelight.getLatency());
     SmartDashboard.putNumber("Vision Skew", Robot.drivetrain.limelight.getSkew());
-
+    SmartDashboard.putNumber("Pov", Robot.oi.gamepad.getPOV(0));
+   // SmartDashboard.putNumber("degrees", Robot.oi.gamepad.getDirectionDegrees());
     SmartDashboard.putNumber("Vision Pipeline Number", Robot.drivetrain.limelight.getPipeline());
     SmartDashboard.putNumber("Vision Camera Mode", Robot.drivetrain.limelight.getCamMode());
     SmartDashboard.putNumber("Vision LED Mode", Robot.drivetrain.limelight.getLEDMode());
@@ -69,6 +71,7 @@ public class SmartDashboardUpdater extends Command {
 
     SmartDashboard.putNumber("Skis Current", Robot.climber.getSkisCurrent());
     SmartDashboard.putData("Systems Check", new SystemsCheck());
+    SmartDashboard.putData("Elevator to top", new ElevatorToTop());
   }
 
   @Override

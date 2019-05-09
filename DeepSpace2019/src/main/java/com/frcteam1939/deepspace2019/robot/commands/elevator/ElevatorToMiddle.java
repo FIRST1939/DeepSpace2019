@@ -31,7 +31,7 @@ public class ElevatorToMiddle extends Command {
 
   @Override
   protected boolean isFinished() {
-    return true; // Robot.elevator.isAtMiddle() || time > 3.0;
+    return time > 1.0;
   }
 
   @Override
