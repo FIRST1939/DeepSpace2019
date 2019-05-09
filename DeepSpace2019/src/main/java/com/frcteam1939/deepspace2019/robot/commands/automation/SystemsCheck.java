@@ -15,7 +15,7 @@ import com.frcteam1939.deepspace2019.robot.commands.manipulator.*;
 import com.frcteam1939.deepspace2019.robot.commands.elevator.*;
 import com.frcteam1939.deepspace2019.robot.commands.arm.ArmToBottom;
 import com.frcteam1939.deepspace2019.robot.commands.arm.ArmToSetHeight;
-import com.frcteam1939.deepspace2019.robot.commands.elevator.TuneElevatorPID;
+import com.frcteam1939.deepspace2019.robot.commands.arm.SetArmMotorSpeed;
 import com.frcteam1939.deepspace2019.robot.subsystems.Arm;
 import com.frcteam1939.deepspace2019.robot.subsystems.Lights;
 
@@ -31,18 +31,27 @@ public class SystemsCheck extends CommandGroup {
   
   public SystemsCheck() {
    addSequential(new ArmToSetHeight());
-   addSequential(new ArmToBottom());
-   addSequential(new LowerManipulator());
-   addSequential(new DeployCenterGrab());
-   addSequential(new RetractCenterGrab());
-   addSequential(new RaiseManipulator());
-   addSequential(new ArmToSetHeight());
-   addSequential(new SetElevatorMotorSpeed(.5));
    addSequential(new Wait(1));
+   addSequential(new SetArmMotorSpeed(-.3));
+   addSequential(new Wait(1));
+   addSequential(new SetArmMotorSpeed(0));
+   addSequential(new Wait(1));
+   addSequential(new LowerManipulator());
+   addSequential(new Wait(1));
+   addSequential(new DeployCenterGrab());
+   addSequential(new Wait(1));
+   addSequential(new RetractCenterGrab());
+   addSequential(new Wait(1));
+   addSequential(new RaiseManipulator());
+   addSequential(new Wait(1));
+   addSequential(new ArmToSetHeight());
+   addSequential(new Wait(1));
+   addSequential(new SetElevatorMotorSpeed(.75));
+   addSequential(new Wait(1.5));
    addSequential(new SetElevatorMotorSpeed(0));
    addSequential(new ArmToSetHeight());
+   addSequential(new Wait(1));
    addSequential(new ElevatorToBottom());
-   addSequential(new SetElevatorMotorSpeed(0));
    addSequential(new ArmToBottom());
    addSequential(new IntakeCargoCenter());
    addSequential(new ArmToSetHeight());
