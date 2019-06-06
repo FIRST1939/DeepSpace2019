@@ -38,8 +38,10 @@ public class Manipulator extends Subsystem {
 
   private DigitalInput topBanner = new DigitalInput(RobotMap.cargoAtTopBanner);
   private DigitalInput bottomBanner = new DigitalInput(RobotMap.cargoAtBottomBanner);
-  private DigitalInput limit = new DigitalInput(RobotMap.hatchPanelLimit);
+  private DigitalInput limit = new DigitalInput(RobotMap.cargoLimitSwitch);
   
+
+  private AnalogInput distanceSensor = new AnalogInput(RobotMap.distanceSensor);
 
   @Override
   public void initDefaultCommand() {
@@ -69,6 +71,10 @@ public class Manipulator extends Subsystem {
   public void retractCenterGrab(){
     centerGrabSolenoid.set(false);
     Robot.lights.solidRed();
+  }
+
+  public double getDistanceSensorReading(){
+    return distanceSensor.getVoltage();
   }
 
   public boolean cargoIsAtBottom(){
