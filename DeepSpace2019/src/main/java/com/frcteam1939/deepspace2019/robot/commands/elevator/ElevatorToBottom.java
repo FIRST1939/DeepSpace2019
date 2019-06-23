@@ -25,7 +25,7 @@ public class ElevatorToBottom extends Command {
 
   @Override
   protected void execute() {
-    Robot.elevator.set(-0.5);
+    Robot.elevator.set(-1);
     time = this.timeSinceInitialized();
   }
 
