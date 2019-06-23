@@ -17,7 +17,7 @@ public class RobotMap {
   public static final int rightBackVictor = 35;
   public static final int elevatorSpark = 7;
   public static final int armTalon = 14;
-  public static final int rollerTalon = 26;
+  public static final int rollerTalon = 25;
   public static final int skiTalon = 16;
   public static final int climberWheelsTalon = 22;
   

@@ -69,7 +69,6 @@ public class SmartDashboardUpdater extends Command {
     SmartDashboard.putNumber("Pressure", Robot.getPressure());
 
     SmartDashboard.putNumber("Skis Current", Robot.climber.getSkisCurrent());
-    SmartDashboard.putData("Systems Check", new SystemsCheck());
   }
 
   @Override
