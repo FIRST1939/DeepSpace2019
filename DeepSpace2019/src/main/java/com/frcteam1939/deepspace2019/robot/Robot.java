@@ -84,6 +84,7 @@ public class Robot extends TimedRobot {
     Robot.drivetrain.disableBrakeMode();
     Robot.elevator.disableBrakeMode();
     Robot.arm.enableBrakeMode();
+    Robot.manipulator.enableBrakeMode();
     Robot.lights.rainbow();
   }
 
@@ -109,6 +110,7 @@ public class Robot extends TimedRobot {
     Robot.drivetrain.enableBrakeMode();
     Robot.elevator.enableBrakeMode();
     Robot.arm.enableBrakeMode();
+    Robot.manipulator.enableBrakeMode();
   }
 
   @Override
@@ -125,7 +127,7 @@ public class Robot extends TimedRobot {
     Robot.drivetrain.enableBrakeMode();
     Robot.elevator.enableBrakeMode();
     Robot.arm.enableBrakeMode();
-    
+    Robot.manipulator.enableBrakeMode();
   }
 
   @Override

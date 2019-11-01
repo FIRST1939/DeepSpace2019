@@ -8,6 +8,7 @@
 package com.frcteam1939.deepspace2019.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.frcteam1939.deepspace2019.robot.Robot;
 import com.frcteam1939.deepspace2019.robot.RobotMap;
@@ -25,8 +26,8 @@ public class Manipulator extends Subsystem {
   public static final double OUT_SPEED = -0.75;
   public static final double FINGER_OUT_SPEED = 0.4;
   public static final double FINGER_IN_SPEED = -1.0;
-  public static final double CARGO_UP_SPEED = -0.2;
-  public static final double CARGO_DOWN_SPEED = 0.2;
+  public static final double CARGO_UP_SPEED = -0.4;
+  public static final double CARGO_DOWN_SPEED = 0.4;
 
   public boolean centerGrabIn = true;
   public boolean centerGrabDeployed = false;
@@ -38,10 +39,6 @@ public class Manipulator extends Subsystem {
 
   private DigitalInput topBanner = new DigitalInput(RobotMap.cargoAtTopBanner);
   private DigitalInput bottomBanner = new DigitalInput(RobotMap.cargoAtBottomBanner);
-  private DigitalInput limit = new DigitalInput(RobotMap.cargoLimitSwitch);
-  
-
-  private AnalogInput distanceSensor = new AnalogInput(RobotMap.distanceSensor);
 
   @Override
   public void initDefaultCommand() {
@@ -53,6 +50,18 @@ public class Manipulator extends Subsystem {
     if((Math.abs(value))>0){
       Robot.lights.orangeBlink();
     }
+  }
+
+  public void setRampRate(double value){
+    talon.configOpenloopRamp(value);
+  }
+
+  public void enableBrakeMode(){
+    talon.setNeutralMode(NeutralMode.Brake);
+  }
+
+  public void disableBrakeMode(){
+    talon.setNeutralMode(NeutralMode.Coast);
   }
 
   public void manipulatorRaise(){
@@ -73,10 +82,6 @@ public class Manipulator extends Subsystem {
     Robot.lights.solidRed();
   }
 
-  public double getDistanceSensorReading(){
-    return distanceSensor.getVoltage();
-  }
-
   public boolean cargoIsAtBottom(){
     return !bottomBanner.get();
   }
@@ -87,13 +92,5 @@ public class Manipulator extends Subsystem {
   
   public boolean hasCargo(){
     return (Robot.manipulator.cargoIsAtBottom() && Robot.manipulator.cargoIsAtTop());
-  }
-
-  public boolean hasHatchPanel(){
-    if(limit.get()){
-      Robot.lights.solidYellow();
-    }
-    return limit.get();
-
   }
 }

@@ -8,8 +8,6 @@
 package com.frcteam1939.deepspace2019.robot.commands.smartdashboard;
 
 import com.frcteam1939.deepspace2019.robot.Robot;
-import com.frcteam1939.deepspace2019.robot.commands.automation.*;
-import com.frcteam1939.deepspace2019.robot.commands.elevator.ElevatorToTop;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -47,8 +45,6 @@ public class SmartDashboardUpdater extends Command {
 
     SmartDashboard.putBoolean("Cargo is at Bottom", Robot.manipulator.cargoIsAtBottom());
     SmartDashboard.putBoolean("Cargo is at Top", Robot.manipulator.cargoIsAtTop());
-    SmartDashboard.putNumber("Distance Sensor Reading", Robot.manipulator.getDistanceSensorReading());
-    SmartDashboard.putBoolean("Can Deploy Center Grab", Robot.manipulator.hasHatchPanel());
 
     SmartDashboard.putBoolean("Center Grab is Deployed", Robot.manipulator.centerGrabDeployed);
     SmartDashboard.putBoolean("Center Grab is Retracted", Robot.manipulator.centerGrabIn);
@@ -69,10 +65,6 @@ public class SmartDashboardUpdater extends Command {
     SmartDashboard.putBoolean("Vision Has Found Target", Robot.drivetrain.limelight.isTargetFound());
 
     SmartDashboard.putNumber("Pressure", Robot.getPressure());
-
-    SmartDashboard.putNumber("Skis Current", Robot.climber.getSkisCurrent());
-
-    SmartDashboard.putData("Elevator to top", new ElevatorToTop());
   }
 
   @Override

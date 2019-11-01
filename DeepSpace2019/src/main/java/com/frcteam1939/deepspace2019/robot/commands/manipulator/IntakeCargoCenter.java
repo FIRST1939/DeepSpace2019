@@ -16,7 +16,7 @@ public class IntakeCargoCenter extends CommandGroup {
 
   public IntakeCargoCenter() {
     addSequential(new IntakeCargo());
-    addSequential(new Wait(0.5));
+    addSequential(new Wait(1));
     if (Robot.manipulator.cargoIsAtBottom() && !Robot.manipulator.cargoIsAtTop()){
       addSequential(new CargoMoveUp());
     }

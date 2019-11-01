@@ -7,6 +7,7 @@
 
 package com.frcteam1939.deepspace2019.robot.subsystems; //package declaration
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem; //import the Subsystem template class
 import com.ctre.phoenix.motorcontrol.ControlMode; //imports Control Mode for the motor controllers
@@ -18,11 +19,10 @@ import com.frcteam1939.deepspace2019.robot.commands.climber.ClimberJoystickContr
 
 public class Climber extends Subsystem {
 
-    TalonSRX skiTalon = new TalonSRX(RobotMap.skiTalon); //construct the skiTalon, which controls the skis
     TalonSRX climberWheelsTalon = new TalonSRX(RobotMap.climberWheelsTalon); //construct the climberWheelsTalon, which controls the motor which powers the climber wheels
 
-    private Solenoid climberSolenoid = new Solenoid(RobotMap.climberSolenoid);
-
+    private DoubleSolenoid backClimberSolenoid = new DoubleSolenoid(RobotMap.climberDownSolenoid, RobotMap.climberUpSolenoid);
+    private DoubleSolenoid frontClimberSolenoid = new DoubleSolenoid(RobotMap.frontClimberUpSolenoid, RobotMap.frontClimberDownSolenoid);
     /**
      * The constructor. This initializes various default settings for the motor controllers.
      */
@@ -39,42 +39,18 @@ public class Climber extends Subsystem {
     }
 
     /**
-     * Sets the percent output of the skiTalon.
-     * @param value is the percent output to run the motor at, between 0 and 1.
-     */
-    public void setSkiTalon(double value) {
-      skiTalon.set(ControlMode.PercentOutput, value);
-      if((Math.abs(value))>0){
-        Robot.lights.solidPurple();
-      }
-    }
-  
-    /**
      * Sets the percent output of the climberWheelsTalon.
      */
     public void setClimberWheelsTalon(double value){
       climberWheelsTalon.set(ControlMode.PercentOutput, value);
     }
 
-    /**
-     * Sets the skiTalon's neutral state as break.
-    */
-    public void setSkiTalonEnableBrakeMode() {
-      skiTalon.setNeutralMode(NeutralMode.Brake);
-    }
 
     /**
      * Sets the climberWheelsTalon's neutral state as break.
     */
     public void setClimberWheelsTalonEnableBrakeMode(){
       climberWheelsTalon.setNeutralMode(NeutralMode.Brake);
-    }
-
-    /**
-     * Sets the skiTalon's neutral state as coast.
-     */
-    public void setSkiTalonDisableBrakeMode() {
-      skiTalon.setNeutralMode(NeutralMode.Coast);
     }
   
     /**
@@ -84,15 +60,19 @@ public class Climber extends Subsystem {
       climberWheelsTalon.setNeutralMode(NeutralMode.Coast);
     }
 
-    public void footDown(){
-      climberSolenoid.set(true);
+    public void frontClimberDown(){
+      frontClimberSolenoid.set(DoubleSolenoid.Value.kForward);
     }
 
-    public void footUp(){
-      climberSolenoid.set(false);
+    public void frontClimberUp(){
+      frontClimberSolenoid.set(DoubleSolenoid.Value.kReverse);
     }
 
-    public double getSkisCurrent(){
-      return skiTalon.getOutputCurrent();
+    public void backClimberDown(){
+      backClimberSolenoid.set(DoubleSolenoid.Value.kForward);
+    }
+
+    public void backClimberUp(){
+      backClimberSolenoid.set(DoubleSolenoid.Value.kReverse);
     }
 }

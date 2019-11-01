@@ -33,6 +33,8 @@ public class ManipulatorGamepadControl extends Command {
   @Override
   protected void execute() {
 
+    Robot.manipulator.setRampRate(0);
+
     Robot.oi.gamepad.rightTrigger.whenPressed(new IntakeCargoCenter());
     
     if (Robot.oi.gamepad.leftButton.get() && !wasPressedCenter) {
@@ -54,9 +56,6 @@ public class ManipulatorGamepadControl extends Command {
 		else {
 			wasPressedCenter = true;
 		}
-    
-    Robot.oi.gamepad.leftTrigger.whenPressed(new IntakeHatchPanel());
-    // Robot.oi.gamepad.leftButton.whenPressed(new OutputHatchPanel());
 
     if (Robot.oi.gamepad.rightButton.get()){
       Robot.manipulator.setRoller(Manipulator.OUT_SPEED);

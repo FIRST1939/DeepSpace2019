@@ -20,12 +20,15 @@ public class RobotMap {
   public static final int rollerTalon = 25;
   public static final int skiTalon = 16;
   public static final int climberWheelsTalon = 22;
-  
+
   // Solenoids
 	public static final int PCM = 0;
   public static final int manipulatorAngleSolenoid = 7;
   public static final int manipulatorCenterGrabSolenoid = 6;
-  public static final int climberSolenoid = 1;
+  public static final int climberDownSolenoid = 2;
+  public static final int climberUpSolenoid = 1;
+  public static final int frontClimberDownSolenoid = 3;
+  public static final int frontClimberUpSolenoid = 4;
 
   // Analog Input
   public static final int pressureSensor = 0;
@@ -41,7 +44,7 @@ public class RobotMap {
   public static final int cargoAtTopBanner = 5;
   public static final int cargoLimitSwitch = 6;
 
-  //Digital Output
+  // Digital Output
   public static final int light4 =4;
   public static final int light7 =7;
   public static final int light8 =8;

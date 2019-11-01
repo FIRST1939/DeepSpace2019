@@ -44,12 +44,7 @@ public class Arm extends Subsystem {
   // Negative is moving down
   public void set(double value){
     talon.set(ControlMode.PercentOutput, -value);
-    if((value>0) && Robot.manipulator.hasHatchPanel()){
-      Robot.lights.yellowUp();
-    }
-    else if((value<0) && Robot.manipulator.hasHatchPanel()){
-      Robot.lights.yellowDown();
-    }
+    
     if((value>0) && Robot.manipulator.hasCargo()){
       Robot.lights.orangeUp();
     }
