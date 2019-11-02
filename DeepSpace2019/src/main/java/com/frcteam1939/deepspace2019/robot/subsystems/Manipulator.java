@@ -87,7 +87,7 @@ public class Manipulator extends Subsystem {
   }
 
   public boolean cargoIsAtTop(){
-    return !topBanner.get();
+    return topBanner.get();
   }
   
   public boolean hasCargo(){
