@@ -8,7 +8,6 @@
 package com.frcteam1939.deepspace2019.robot.commands.manipulator;
 
 import com.frcteam1939.deepspace2019.robot.Robot;
-import com.frcteam1939.deepspace2019.util.Wait;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -16,7 +15,6 @@ public class IntakeCargoCenter extends CommandGroup {
 
   public IntakeCargoCenter() {
     addSequential(new IntakeCargo());
-    addSequential(new Wait(1));
     if (Robot.manipulator.cargoIsAtBottom() && !Robot.manipulator.cargoIsAtTop()){
       addSequential(new CargoMoveUp());
     }
